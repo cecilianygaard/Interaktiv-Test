@@ -2,7 +2,6 @@ function createDatabase() {
 
   var container = document.getElementById('container');
 
-
   try {
     //if (window.openDatabase) {
     var shortName = 'testFest.db';
@@ -28,8 +27,6 @@ function showQuestion () {
 
 
     var container = document.getElementById('container');
-
-
 
     //Show question
     var question = document.createElement('h2');
