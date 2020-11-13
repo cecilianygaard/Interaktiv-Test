@@ -46,4 +46,183 @@ GenerateQuestion();
   <script language="javascript" type="text/javascript" src="Main.js"></script>
   <!-- OK, YOU CAN MAKE CHANGES BELOW THIS LINE AGAIN -->
  
+  <!DOCTYPE html>
+<html>
+  <head>
+    <title>Elev testside</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+    * {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* Style the header */
+.header {
+  background-color: DarkSalmon;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Style the top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: beige;
+}
+
+/* Style the topnav links */
+.topnav a {
+  float: left;
+  display: block;
+  background-color: sienna;
+  color: beige;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  border-radius: 8px;
+  font-family: georgia;
+}
+
+.topnav b {
+  float: left;
+  display: block;
+  background-color: beige;
+  color: beige;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-family: georgia;
   
+}
+.topnav c {
+  float: right;
+  display: block;
+  background-color: sienna;
+  color: beige;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  border-radius: 8px;
+  font-family: georgia;
+}
+
+/* Change color on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Create three unequal columns that floats next to each other */
+.column {
+  float: left;
+  padding: 10px;
+}
+
+/* Left and right column */
+.column.side {
+  width: 25%;
+  font-family: georgia;
+  background-color: beige;
+}
+
+/* Middle column */
+.column.middle {
+  width: 50%;
+  background-color: Beige;
+  border-radius: 8px;
+  font-family: georgia;
+}
+
+ h2 {
+    font-size:40px;
+    text-align:center; 
+    
+  }
+  
+   h3{
+     font-size:20px;
+     text-align:center;
+   }
+   
+   p{
+     text-align:center;
+   }
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column.side, .column.middle {
+    width: 100%;
+  }
+}
+    
+     .block {
+    display: block;
+    width: 100%%;
+    border: none;
+    background-color: #F5F5DC;
+    color: black; 
+    padding: 14px 28px; 
+    font-size: 40px; 
+    cursor: pointer; 
+    text-align:center; 
+    font-family:georgia;
+  }
+  
+  .block:hover {
+    background-color: #ddd;
+    color: black; 
+  }
+    </style>
+  </head>
+  <body style="background-color:beige;">
+  <div class="header">
+  <h1> Test-Fest </h1>
+  <p> En testservice der kan overskue elevers udvikling </p>
+    </div>
+
+    <div class="topnav">
+      <b href="#">  </b>
+      <a href="#">Tilbage</a>
+      <b href="#">   </b>                                                                                          </b>
+      <c href="#">Gem Test</c>
+      <b href="#">  </b>
+    </div>
+
+    <div class="row">
+      <div class="column side">
+        <h2> Instruktioner </h2>
+        <p> Her skal jeg lige huske hvordan man laver en formatteret liste, så det kommer senere </p>
+      </div>
+  
+  <div class="column middle">
+     <h2>Spørgsmål</h2>
+        <br>
+  <div style="text-align:center;">
+    <h3></p>
+  </div>
+        <br>
+        <br>
+  <div style="text-align:center;">
+    <button type="button">Tilføj et nyt spørgsmål</button>
+  </div>
+  </div>
+  
+  <div class="column side">
+    <h2>  </h2>
+    <p>  </p>
+  </div>
+</div>
+  </body>
+</html>
