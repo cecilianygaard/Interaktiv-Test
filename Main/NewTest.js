@@ -1,6 +1,5 @@
 function createDatabase() {
 
-  const dbName = "the_name";
   //  const dbName = "the_name";
 
   var request = indexedDB.open(dbName, 2);
