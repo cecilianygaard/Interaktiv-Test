@@ -3,19 +3,88 @@
   <head>
   
     <style>
-    h1{
-        font-size:40px;
-        text-align:center;
-        font-family:verdana;
+    * {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* Style the header */
+.header {
+  background-color: DarkSalmon;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Style the top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: DarkSalmon;
+}
+
+/* Style the topnav links */
+.topnav a {
+  float: left;
+  display: block;
+  background-color: beige;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  border-radius: 8px;
+  
+}
+
+.topnav b {
+  float: left;
+  display: block;
+  background-color: DarkSalmon;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  
+}
+
+/* Change color on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Create three unequal columns that floats next to each other */
+.column {
+  float: left;
+  padding: 10px;
+}
+
+/* Left and right column */
+.column.side {
+  width: 25%;
+}
+
+/* Middle column */
+.column.middle {
+  width: 50%;
+  background-color: Beige;
+  border-radius: 8px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column.side, .column.middle {
+    width: 100%;
   }
-    #t01 {
-        cellspacing="0";
-        cellpadding="0";
-  }
-    #t01 td {
-        background-color:DarkSalmon;
-        text-align: center;
-    }
+}
     
      .block {
     display: block;
@@ -37,55 +106,30 @@
     </style>
   </head>
   <body style="background-color:DarkSalmon;">
+  <div class="header">
+</div>
+
+<div class="topnav">
+  <b href="#">  </b>
+  <a href="#">Færdig</a>
+</div>
+
+<div class="row">
+  <div class="column side">
+    <h2>  </h2>
+    <p>  </p>
+  </div>
   
-    <table id="t01">
-      <tr>
-        <th="width:20%"> </th>
-        <th= "width:60%"> </th>
-        <th="width:20%"> </th>
-      </tr>
-        <br>
-      <tr>
-        <td> &nbsp </td>
-        <td style="background-color:#F5F5DC;font-size:40px;font-family:verdana;"> <b> </b> </td>
-        <td> &nbsp</td>
-      </tr>
-      <tr>
-        <td> &nbsp </td>
-        <td style="background-color:#F5F5DC;font-size:40px;font-family:verdana;"> <b>Test navn</b> </td>
-        <td> &nbsp</td>
-      </tr>
-      <tr>
-        <td> &nbsp </td>
-        <td style="background-color:#F5F5DC;font-size:18px;font-family:verdana;"> 
-          <br>
-        <i>Du skal vælge et svar for hvert spørgsmål. Når du er færdig
-        med testen skal du klikke på knappe 'Færdig'. Du vil IKKE kunne ændre på dine svar herefter. Din lærer vil med det samme kunne se dine 
-        resultater, når du klikker 'Færdig'.</i> <br>
-        </td>
-        <td> &nbsp</td>
-      </tr>
-       <tr>
-        <td> &nbsp </td>
-        <td style="background-color:#F5F5DC;font-size:18px;font-family:verdana;"> 
-          <br>
-        <i>Plads her til spørgsmål :)</i> <br>
-        </td>
-        <td> &nbsp</td>
-      </tr>
-      <tr>
-         <td> &nbsp </td>
-        <td style="background-color:#F5F5DC;font-size:20px;font-family:verdana;">
-        <button class="block"><b>Færdig</b></button> </td>
-        <td> &nbsp</td>
-      </tr> 
-      <tr>
-        <td> &nbsp </td>
-        <td style="background-color:#F5F5DC;font-size:40px;font-family:verdana;"> <b> </b> </td>
-        <td> &nbsp</td>
-      </tr>
-    </table>
-    <br>
-    
+  <div class="column middle">
+    <h2> Test Navn </h2>
+    <p>Her kan være plads til spørgsmål, som indsættes gennem Picos funktioner (Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque ultricies, eget elementum magna tristique. Quisque vehicula, risus eget aliquam placerat, purus leo tincidunt eros, eget luctus quam orci in velit. Praesent scelerisque tortor sed accumsan convallis.)</p>
+    <p>Her kan være plads til spørgsmål, som indsættes gennem Picos funktioner (Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque ultricies, eget elementum magna tristique. Quisque vehicula, risus eget aliquam placerat, purus leo tincidunt eros, eget luctus quam orci in velit. Praesent scelerisque tortor sed accumsan convallis.)</p>
+  </div>
+  
+  <div class="column side">
+    <h2>  </h2>
+    <p>  </p>
+  </div>
+</div>
   </body>
 </html>
