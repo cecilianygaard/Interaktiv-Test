@@ -1,47 +1,183 @@
 <!DOCTYPE html>
-  <html>
+<html>
   <head>
-  <meta name="viewport"content="width=device-width,initial-scale=1">
-  <style>
-  .block {
+    <title>Elev Main</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+    * {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* Style the header */
+.header {
+  background-color: DarkSalmon;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Style the top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: DarkSalmon;
+}
+
+/* Style the topnav links */
+.topnav a {
+  float: left;
+  display: block;
+  background-color: sienna;
+  color: beige;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  border-radius: 8px;
+  font-family: georgia;
+  
+}
+
+.topnav b {
+  float: left;
+  display: block;
+  background-color: DarkSalmon;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-family: georgia;
+  
+}
+
+/* Change color on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Create three unequal columns that floats next to each other */
+.column {
+  float: left;
+  padding: 10px;
+}
+
+/* Left and right column */
+.column.side {
+  width: 25%;
+  font-family: georgia;
+  background-color: beige;
+}
+
+/* Middle column */
+.column.middle {
+  width: 50%;
+  background-color: Beige;
+  border-radius: 8px;
+  font-family: georgia;
+}
+
+ h2 {
+    font-size:40px;
+    text-align:center; 
+    
+  }
+  
+   h3{
+     font-size:20px;
+     text-align:center;
+   }
+   
+   p{
+     text-align:center;
+   }
+   
+ 
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column.side, .column.middle {
+    width: 100%;
+  }
+}
+    
+     .block {
     display: block;
-    width: 35%;
+    width: 20%%;
     border: none;
-    background-color: #F5F5DC;
-    color: black; 
+    background-color: DarkSalmon;
+    color: beige; 
     padding: 14px 28px; 
-    font-size: 16px; 
+    font-size: 20px; 
     cursor: pointer; 
-    text-align: center; 
+    text-align:center; 
+    font-family:georgia;
   }
   
   .block:hover {
     background-color: #ddd;
     color: black; 
   }
- 
-    h1 {
-    font-size:40px;
-    text-align:center;
-    }
-    
-  </style>
+    </style>
   </head>
-  <body style="background-color:DarkSalmon;">
-  <body>
+  <body style="background-color:beige;">
+  <div class="header">
+  <h1> Test-Fest </h1>
+  <p> En testservice der kan overskue din udvikling </p>
+</div>
+
+<div class="topnav">
+</div>
+
+<div class="row">
+  <div class="column side">
+    <h2>  </h2>
+    <p>  </p>
+  </div>
   
-  <h1>Hej, og velkommen tilbage</h2>
+  <div class="column middle">
+     <h2>Velkommen "elevens navn"</h2>
+      
+  <div style="text-align:right;">
+  </div>
+  </div>
   
-  <div style="text-align:center;">
+  <div class="column side">
+    <h2>  </h2>
+    <p>  </p>
+  </div>
+</div>
+ 
+ <div style="text-align:center;">
   <button class="block">Se din udvikling</button>
+ </div>
+  <br>
+  <br>
+  <div style="text-align:center;">
+  <button class="block">Tag test</button>
   </div>
   <br>
   <br>
-  <button class="block">Tag test</button>
-  </body>
-  </html>
-
-  <body>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <button type="button">Log ud</button>
   
   </body>
   </html>
+  </body>
+</html>
+  
+ 
