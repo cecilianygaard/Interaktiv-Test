@@ -3,10 +3,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <script type = "text/javascript">
+      
+      </script>
+
   <!-- PLEASE NO CHANGES BELOW THIS LINE (UNTIL I SAY SO) -->
   <script language="javascript" type="text/javascript" src="libraries/p5.min.js"></script>
   <script language="javascript" type="text/javascript" src="Brugere.js"></script>
-  <script language="javascript" type="text/javascript" src="Dot.js"></script>
   <script language="javascript" type="text/javascript" src="ElevTest.js"></script>
   <script language="javascript" type="text/javascript" src="General.js"></script>
   <script language="javascript" type="text/javascript" src="NewTest.js"></script>
@@ -17,6 +20,10 @@
   <script language="javascript" type="text/javascript" src="Main.js"></script>
   <!-- OK, YOU CAN MAKE CHANGES BELOW THIS LINE AGAIN -->
   
+  
+    <!-- This line removes any default padding and style.
+       You might only need one of these values set. -->
+  <style> body { padding: 0; margin: 0; } </style>
 </head>
 
 <body>
@@ -24,22 +31,26 @@
  <div id="container"></div>
 
   <div>
-    <button id="submit" onClick=GenerateNewQuestion()>Tilføj nyt spørgsmål</button>
+  //<button id="submit" onClick=GenerateNewQuestion()>Tilføj nyt spørgsmål</button>
   </div>
 
 <script>
 var question_no = 1;
+GenerateQuestion();
+
+//showQuestion();
 </script>
 
 
  <body>
       <button onclick = "read()">Read </button>
-      <button onclick = "readAll()">Read all </button>
-      <button onclick = "add()">Add data </button>
-      <button onclick = "removexxx()">Delete data </button>
+      <button onclick = "read_all_users()">Read all </button>
+      <button onclick = "add_user()">Add data </button>
+      <button onclick = "remove_user()">Delete data </button>
+      <button onclick = "check_password()">check_password </button>
    </body>
-
-
+<br><br>
+<a href="Login_Page.html">Login</a>
 
 </body>
 

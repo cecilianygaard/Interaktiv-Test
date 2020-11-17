@@ -1,139 +1,54 @@
-function createDatabase() {
-  const dbName = "the_name";
+function GenerateQuestion () {
 
-  var request = indexedDB.open(dbName, 2);
-
-  request.onerror = function(event) {
-    // Handle errors.
-  };
-  request.onupgradeneeded = function(event) {
-    var db = event.target.result;
-
-    // Create an objectStore to hold information about our customers. We're
-    // going to use "ssn" as our key path because it's guaranteed to be
-    // unique - or at least that's what I was told during the kickoff meeting.
-    var objectStore = db.createObjectStore("customers", { 
-    keyPath: 
-      "ssn"
-    }
-    );
-
-    // Create an index to search customers by name. We may have duplicates
-    // so we can't use a unique index.
-    objectStore.createIndex("name", "name", { 
-    unique: 
-      false
-    }
-    );
-
-    // Create an index to search customers by email. We want to ensure that
-    // no two customers have the same email, so use a unique index.
-    objectStore.createIndex("email", "email", { 
-    unique: 
-      true
-    }
-    );
-
-    // Use transaction oncomplete to make sure the objectStore creation is 
-    // finished before adding data into it.
-    objectStore.transaction.oncomplete = function(event) {
-      // Store values in the newly created objectStore.
-      var customerObjectStore = db.transaction("customers", "readwrite").objectStore("customers");
-      customerData.forEach(function(customer) {
-        customerObjectStore.add(customer);
-      }
-      );
-    };
-  };
-}
-
-
-
-
-
-function showQuestion () {
   document.getElementById('submit').onclick = function() {
 
     var container = document.getElementById('container');
 
     //Show question
     var question = document.createElement('h2');
-    question.innerHTML = "Spørgsmål";
+    question.innerHTML = "Nyt spørgsmål";
     container.appendChild(question);
 
+    var questionTxtField = document.createElement('input');
+    questionTxtField.type = 'text';
+    questionTxtField.id = 'a'+i;
+    questionTxtField.value = 'Skriv spørgsmål her';
+    questionTxtField.name = 'question';
+    questionTxtField.style.fontSize = "large";
+    container.appendChild(questionTxtField);
+    insertNewline(2);
 
-    //Generate radio buttons
+    //Generate textfields for questions
     for (var i = 1; i <= 4; i++)
     {
-
       var radiobox1 = document.createElement('input');
 
       radiobox1.type = 'radio';
-      radiobox1.id = i;
+      radiobox1.id = 'rightAnswer'+i;
       radiobox1.value = i;
-      radiobox1.name = 'question';
-
-      var label1 = document.createElement('label');
-      label1.htmlFor = 'Answer ' + i;
-
-      var description1 = document.createTextNode('Answer ' + i);
-
-      label1.appendChild(description1);
+      radiobox1.name = 'answer'+question_no;
 
       container.appendChild(radiobox1);
-      container.appendChild(label1);
+
+      var answerTxt = document.createElement('text');
+      answerTxt.innerHTML = 'Answer ' + i;
+      container.appendChild(answerTxt);
+      //var answerTxtnode = document.createTextNode('Answer ' + i);
+
       var newline = document.createElement('br');
       container.appendChild(newline);
+
+      var answerTxtField = document.createElement('input');
+      answerTxtField.type = 'text';
+      answerTxtField.id = 'a'+i;
+      answerTxtField.name = 'answer';
+      container.appendChild(answerTxtField);
+
+      insertNewline(2);
     }
-  }
-}
 
-
-function GenerateNewQuestion () {
-  var container = document.getElementById('container');
-
-  //Show question
-  var question = document.createElement('h2');
-  question.innerHTML = "Nyt spørgsmål";
-  container.appendChild(question);
-
-  var questionTxtField = document.createElement('input');
-  questionTxtField.type = 'text';
-  questionTxtField.id = 'a';
-  questionTxtField.value = 'Skriv spørgsmål her';
-  questionTxtField.name = 'question';
-  questionTxtField.style.fontSize = "large";
-  container.appendChild(questionTxtField);
-  insertNewline(2);
-
-  //Generate textfields for questions
-  for (var i = 1; i <= 4; i++)
-  {
-    var radiobox = document.createElement('input');
-
-    radiobox.type = 'radio';
-    radiobox.id = 'rightAnswer'+i;
-    radiobox.value = i;
-    radiobox.name = 'answer'+question_no;
-
-    container.appendChild(radiobox);
-
-    var answerTxt = document.createElement('text');
-    answerTxt.innerHTML = 'Answer ' + i;
-    container.appendChild(answerTxt);
-
-    insertNewline (1);
-
-    var answerTxtField = document.createElement('input');
-    answerTxtField.type = 'text';
-    answerTxtField.id = 'a'+i;
-    answerTxtField.name = 'answer';
-    container.appendChild(answerTxtField);
-
-    insertNewline(2);
-  }
-
-  question_no = question_no + 1;
+    question_no = question_no + 1;
+  };
 }
 
 function insertNewline(no)
@@ -144,132 +59,4 @@ function insertNewline(no)
     var newline = document.createElement('br');
     container.appendChild(newline);
   }
-}
-
-
-
-//prefixes of implementation that we want to test
-window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
-
-//prefixes of window.IDB objects
-window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
-window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
-
-if (!window.indexedDB) {
-  window.alert("Your browser doesn't support a stable version of IndexedDB.");
-}
-
-const employeeData = [
-{ 
-id: 
-"00-01", name: 
-"gopal", age: 
-35, email: 
-  "gopal@tutorialspoint.com"
-}
-, 
-{ 
-id: 
-"00-02", name: 
-"prasad", age: 
-32, email: 
-  "prasad@tutorialspoint.com"
-}
-];
-var db;
-var request = window.indexedDB.open("newDatabase", 1);
-
-request.onerror = function(event) {
-  console.log("error: ");
-};
-
-request.onsuccess = function(event) {
-  db = request.result;
-  console.log("success: "+ db);
-};
-
-request.onupgradeneeded = function(event) {
-  var db = event.target.result;
-  var objectStore = db.createObjectStore("employee", {
-  keyPath: 
-    "id"
-  }
-  );
-
-  for (var i in employeeData) {
-    objectStore.add(employeeData[i]);
-  }
-}
-
-function read() {
-  var transaction = db.transaction(["employee"]);
-  var objectStore = transaction.objectStore("employee");
-  var request = objectStore.get("00-03");
-
-  request.onerror = function(event) {
-    alert("Unable to retrieve daa from database!");
-  };
-
-  request.onsuccess = function(event) {
-    // Do something with the request.result!
-    if (request.result)
-    {
-      alert("Name: " + request.result.name + ", Age: " + request.result.age + ", Email: " + request.result.email);
-    } else
-    {
-      alert("Kenny couldn't be found in your database!");
-    }
-  };
-}
-
-function readAll() {
-  var objectStore = db.transaction("employee").objectStore("employee");
-
-  objectStore.openCursor().onsuccess = function(event) {
-    var cursor = event.target.result;
-
-    if (cursor) {
-      alert("Name for id " + cursor.key + " is " + cursor.value.name + ", Age: " + cursor.value.age + ", Email: " + cursor.value.email);
-      cursor.continue();
-    } else {
-      alert("No more entries!");
-    }
-  };
-}
-
-function add() {
-  var request = db.transaction(["employee"], "readwrite")
-    .objectStore("employee")
-    .add( { 
-  id: 
-  "00-03", name: 
-  "Kenny", age: 
-  19, email: 
-    "kenny@planet.org"
-  }
-  );
-
-  request.onsuccess = function(event) {
-    alert("Kenny has been added to your database.");
-  };
-
-  request.onerror = function(event) {
-    alert("Unable to add data\r\nKenny is aready exist in your database! ");
-  };
-}
-
-function removexxx() {
-
-  transaction = db.transaction("employee", "readwrite");
-  objectStore = transaction.objectStore("employee");
-  request = objectStore.delete("00-03");
-
-
-  //var request = db.transaction(["employee"], "readwrite")
-  //  .objectStore("employee")
-  //  .delete("00-03");
-
-  request.onsuccess = function(event) {
-    alert("Kenny's entry has been removed from your database.");
-  };
 }

@@ -3,8 +3,7 @@ function showQuestion () {
   document.getElementById('submit').onclick = function() {
 
     var container = document.getElementById('container');
-
-    //Show question
+  //Show question
     var question = document.createElement('h2');
     question.innerHTML = "Spørgsmål";
     container.appendChild(question);
