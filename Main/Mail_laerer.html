@@ -1,5 +1,22 @@
 <!DOCTYPE html>
+
+
+
+
+
+
+
 <html>
+
+<script>
+const TEACHER = "1"; 
+if (sessionStorage.brugerid != TEACHER)
+{
+  window.location.href = 'Login_Page.html';
+}
+</script>
+
+
   <head>
     <title>lærer Main</title>
 <meta charset="utf-8">
@@ -149,7 +166,7 @@ body {
   </div>
   
   <div class="column middle">
-     <h2>Velkommen "lærerns navn"</h2>
+     <h2 id ="user_name_text"></h2>
       
   <div style="text-align:right;">
   </div>
@@ -184,6 +201,11 @@ body {
   <br>
   
   </body>
+  
+  <script>
+  document.getElementById('user_name_text').innerHTML = "Velkommen " + sessionStorage.username;
+  </script>
+  
   </html>
   </body>
 </html>

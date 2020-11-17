@@ -13,6 +13,10 @@ An existing db can be renamed to match another URL */
 
 //Note: If anything in the db format changes, the db must be cleared and rebuild. Either delete database file or delete in dev tools.
 
+const ADMIN   = "0";
+const TEACHER = "1";
+const STUDENT = "2";
+
 
 //prefixes of implementation that we want to test
          window.indexedDB = window.indexedDB || window.mozIndexedDB || 
@@ -28,8 +32,8 @@ An existing db can be renamed to match another URL */
          }
          
          const userData = [
-            { brugerid: "1", username: "pico", password: "yo", email: "abc@def.com" },
-            { brugerid: "2", username: "dude", password: "ho", email: "du@de.com" }
+            { brugerid: TEACHER, username: "pico", password: "yo", email: "abc@def.com" },
+            { brugerid: STUDENT, username: "dude", password: "ho", email: "du@de.com" }
             //hardcode more users here
          ];
          
@@ -80,14 +84,16 @@ An existing db can be renamed to match another URL */
             index.get(brugernavn).onsuccess = function(event) {
                //user found, now check if password is correct
                if (event.target.result.password == pw) {
-                 alert("Password correct");
-                
-                 //save logged in state   
-                 sessionStorage.loggedinstate = 'True';
-                 
-                 //read logged in state this way in other pages
-                 //var loggedinstate = sessionStorage.loggedinstate;
-                 
+                 sessionStorage.username = event.target.result.username;
+                 sessionStorage.brugerid = event.target.result.brugerid;
+                 if (event.target.result.brugerid == TEACHER)
+                 {
+                    window.location.href = 'Mail_laerer.html';    
+                 }
+                 else if (event.target.result.brugerid == STUDENT)
+                 {
+                    window.location.href = 'Main_elev.html';
+                 }      
                }
                else
                {
