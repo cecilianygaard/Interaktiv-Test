@@ -1,17 +1,15 @@
 function GenerateQuestion () {
 
-  document.getElementById('submit').onclick = function() {
-
     var container = document.getElementById('container');
 
     //Show question
     var question = document.createElement('h2');
-    question.innerHTML = "Nyt spørgsmål";
+    question.innerHTML = "Spørgsmål " + question_no;
     container.appendChild(question);
 
     var questionTxtField = document.createElement('input');
     questionTxtField.type = 'text';
-    questionTxtField.id = 'a'+i;
+    questionTxtField.id = 'a'+question_no;
     questionTxtField.value = 'Skriv spørgsmål her';
     questionTxtField.name = 'question';
     questionTxtField.style.fontSize = "large";
@@ -35,20 +33,39 @@ function GenerateQuestion () {
       container.appendChild(answerTxt);
       //var answerTxtnode = document.createTextNode('Answer ' + i);
 
-      var newline = document.createElement('br');
-      container.appendChild(newline);
+      insertNewline(1);
 
       var answerTxtField = document.createElement('input');
       answerTxtField.type = 'text';
-      answerTxtField.id = 'a'+i;
+      answerTxtField.id = 'answer_text_field'+answer_no;
       answerTxtField.name = 'answer';
       container.appendChild(answerTxtField);
 
       insertNewline(2);
+      
+      answer_no++;
     }
-
+    
+    
     question_no = question_no + 1;
-  };
+  //};
+}
+
+function SaveTest()
+{
+    
+    //for now, only all the answers are saved. 
+    
+    //add sanity checks such as:
+    //1) Does all text fields contain text?
+    //2) Is there a selected radio button for all questions?
+
+    for (var i = 1; i < answer_no; i++)
+    {
+       var request = db.transaction(["answers"], "readwrite")
+            .objectStore("answers")
+            .add({ text: document.getElementById('answer_text_field'+i).value});
+    }
 }
 
 function insertNewline(no)

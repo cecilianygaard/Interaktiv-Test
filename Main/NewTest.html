@@ -1,9 +1,13 @@
   <!DOCTYPE html>
 <html>
   <head>
-    <title>Elev testside</title>
+    <title>Ny test</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script language="javascript" type="text/javascript" src="NewTest.js">
+</script>
+<script language="javascript" type="text/javascript" src="database_user.js"></script>
 
     <style>
     * {
@@ -155,7 +159,9 @@ body {
       <b href="#">  </b>
       <a href="#">Tilbage</a>
       <b href="#">   </b>
-      <c href="#">Gem Test</c>
+      <c href="#" onclick="SaveTest()">Gem Test</c>
+      <c><href="#" onclick="GenerateQuestion()">Nyt spørgsmål</button></c>
+      
       <b href="#">  </b>
     </div>
 
@@ -173,8 +179,15 @@ body {
   </div>
         <br>
         <br>
-  <div style="text-align:center;">
-    <button type="button">Tilføj et nyt spørgsmål</button>
+  <div style="text-align:center;" id="container">
+    
+    
+     
+    <script>
+   var answer_no = 1;
+   var question_no = 1;
+    </script>
+    
   </div>
   </div>
   

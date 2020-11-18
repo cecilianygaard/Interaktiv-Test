@@ -32,10 +32,16 @@ const STUDENT = "2";
          }
          
          const userData = [
-            { brugerid: TEACHER, username: "pico", password: "yo", email: "abc@def.com" },
+            { brugerid: TEACHER, username: "p", password: "", email: "abc@def.com" },
             { brugerid: STUDENT, username: "dude", password: "ho", email: "du@de.com" }
             //hardcode more users here
          ];
+         
+          const dummyanswerData = [
+            {text: "svar"}
+         ];
+         
+
          
        
          var db;
@@ -47,12 +53,16 @@ const STUDENT = "2";
          
          request.onsuccess = function(event) {
             db = request.result;
-            console.log("success: "+ db);
+            console.log("success: " + db);
          };
          
          //this function will create the database if it doesn't exist
          request.onupgradeneeded = function(event) {
             var db = event.target.result;
+            
+            
+            /* Generate user table in database */
+            
             
             //create user table and tell database that key is username (unique)
             var objectStore = db.createObjectStore("user", {keyPath: "username"});
@@ -64,6 +74,20 @@ const STUDENT = "2";
             for (var i in userData) {
                objectStore.add(userData[i]);
             }
+            
+            /* Generate answer table in database */
+            
+            //create user table and tell database that key is username (unique)
+            var objectStoreAnswers = db.createObjectStore("answers", { autoIncrement : true });
+            
+            //needed for index based searching by id
+            //objectStoreAnswers.createIndex("id", "id", { unique: true });
+            
+             //populate database with hardcoded entries
+            for (var j in dummyanswerData) {
+               objectStoreAnswers.add(dummyanswerData[j]);
+            }
+            
          }
          
          
