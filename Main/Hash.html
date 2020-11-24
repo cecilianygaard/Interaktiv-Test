@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+    
+    <head>
+        <script language="javascript" type="text/javascript" src="Hash.js"></script>
+    </head>
+
+    <body>
+        <form name="hashForm" method="dialog">
+            Password:
+            <br>
+            <input type="text" name="password" style="width: 400px;">
+            <br><br>
+            <button onclick="Encrypt();">Hash the Password</button>
+            <br><br>
+            Hash Value:
+            <br>
+            <input type="text" name="hash" style="width: 400px;">
+        </form>
+        <script>
+            async function Encrypt(){
+                var p = document.hashForm.password.value;
+                var hashed = await asyncHash(p);
+                document.hashForm.hash.value = hashed;
+            }
+            
+        </script>
+    </body>
+
+</html>
+  
+ 

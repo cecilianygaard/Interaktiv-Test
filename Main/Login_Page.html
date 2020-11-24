@@ -1,134 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script language="javascript" type="text/javascript" src="hash.js"></script>
     <script language="javascript" type="text/javascript" src="database_user.js"></script>
     
     <title>Elev testside</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <style>
-    * {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-}
-
-/* Style the header */
-.header {
-  background-color: DarkSalmon;
-  padding: 20px;
-  text-align: center;
-}
-
-/* Style the top navigation bar */
-.topnav {
-  overflow: hidden;
-  background-color: DarkSalmon;
-}
-
-/* Style the topnav links */
-.topnav a {
-  float: left;
-  display: block;
-  background-color: sienna;
-  color: beige;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  border-radius: 8px;
-  font-family: georgia;
+  <link rel="stylesheet" href="Style.css">
   
-}
-
-.topnav b {
-  float: left;
-  display: block;
-  background-color: DarkSalmon;
-  color: black;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-family: georgia;
-  
-}
-
-/* Change color on hover */
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-/* Create three unequal columns that floats next to each other */
-.column {
-  float: left;
-  padding: 10px;
-}
-
-/* Left and right column */
-.column.side {
-  width: 25%;
-  font-family: georgia;
-  background-color: beige;
-}
-
-/* Middle column */
-.column.middle {
-  width: 50%;
-  background-color: Beige;
-  border-radius: 8px;
-  font-family: georgia;
-}
-
- h2 {
-    font-size:40px;
-    text-align:center; 
-    
-  }
-  
-   h3{
-     font-size:20px;
-     text-align:center;
-   }
-   
-   p{
-     text-align:center;
-   }
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 600px) {
-  .column.side, .column.middle {
-    width: 100%;
-  }
-}
-    
-     .block {
-    display: block;
-    width: 100%%;
-    border: none;
-    background-color: #F5F5DC;
-    color: black; 
-    padding: 14px 28px; 
-    font-size: 40px; 
-    cursor: pointer; 
-    text-align:center; 
-    font-family:georgia;
-  }
-  
-  .block:hover {
-    background-color: #ddd;
-    color: black; 
-  }
-    </style>
   </head>
   <body style="background-color:beige;">
   <div class="header">
@@ -164,7 +45,7 @@ body {
   <div style="text-align:center;">
  <button onclick = "check_password()">Log ind</button>
   </div>
-   <p><a href="https://www.w3schools.com/">Er du ikke allerede bruger? Opret dig her</a></p>
+   <p><a href="opret_bruger.html">Er du ikke allerede bruger? Opret dig her</a></p>
   </div>
 
   <div class="column side">

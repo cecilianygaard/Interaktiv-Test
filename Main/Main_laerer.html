@@ -1,21 +1,25 @@
 <!DOCTYPE html>
   <html>
-
   <script>
-  const STUDENT = "2"; 
-if (sessionStorage.brugerid != STUDENT)
+  const TEACHER = "1"; 
+if (sessionStorage.brugerid != TEACHER)
 {
   window.location.href = 'Login_Page.html';
 }
 </script>
 
   <head>
+  <title>lærer Main</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <link rel="stylesheet" href="Style.css">
+
   </head>
   <body style="background-color:beige;">
   <div class="header">
   <h1> Test-Fest </h1>
-  <p> En testservice der kan overskue din udvikling </p>
+  <p> En testservice der kan overskue dine elevers udvikling </p>
   </div>
 
   <div class="topnav">
@@ -32,9 +36,9 @@ if (sessionStorage.brugerid != STUDENT)
   </div>
 
   <div class="column middle">
-  <h2 id ="user_name_text></h2>
+  <h2 id ="user_name_text"></h2>
 
-<div style="text-align:right;">
+  <div style="text-align:right;">
   </div>
   </div>
 
@@ -42,16 +46,21 @@ if (sessionStorage.brugerid != STUDENT)
   <h2>  </h2>
   <p>  </p>
   </div>
-
   </div>
 
   <div style="text-align:center;">
-  <button class="block" onclick="window.location.href='resultat_elev.html'">Se din udvikling</button>
+  <button class="block" onclick="window.location.href='resultat_laerer.html'">Se udviklingen på dine elever</button>
   </div>
   <br>
   <br>
   <div style="text-align:center;">
-  <button class="block" onclick="window.location.href='Elev_Test.html'">Tag test</button>
+  <button class="block" onclick = "window.location.href = 'NewTest.html'">Opret test</button>
+  <br>
+  <br>
+  <button class="block">Se dine hold</button>
+  <br>
+  <br>
+  <button class="block">Opret hold</button>
   </div>
   <br>
   <br>

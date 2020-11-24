@@ -1,4 +1,4 @@
-function setup() {
+/*function setup() {
 createCanvas (fullscreen);
 
 }
@@ -7,4 +7,4 @@ createCanvas (fullscreen);
 function draw() {
 background(220);
 
-}
+} */

@@ -1,200 +1,64 @@
-  <!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+  <html>
   <head>
-    <title>Ny test</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ny test</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<script language="javascript" type="text/javascript" src="NewTest.js">
-</script>
-<script language="javascript" type="text/javascript" src="database_user.js"></script>
+  <script language="javascript" type="text/javascript" src="NewTest.js">
+  </script>
+  <script language="javascript" type="text/javascript" src="database_user.js"></script>
 
-    <style>
-    * {
-  box-sizing: border-box;
-}
+  <link rel="stylesheet" href="Style.css">
 
-body {
-  margin: 0;
-}
-
-/* Style the header */
-.header {
-  background-color: DarkSalmon;
-  padding: 20px;
-  text-align: center;
-}
-
-/* Style the top navigation bar */
-.topnav {
-  overflow: hidden;
-  background-color: beige;
-}
-
-/* Style the topnav links */
-.topnav a {
-  float: left;
-  display: block;
-  background-color: DarkSalmon;
-  color: beige;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  border-radius: 8px;
-  font-family: georgia;
-}
-
-.topnav b {
-  float: left;
-  display: block;
-  background-color: beige;
-  color: beige;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-family: georgia;
-  
-}
-.topnav c {
-  float: right;
-  display: block;
-  background-color: DarkSalmon;
-  color: beige;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  border-radius: 8px;
-  font-family: georgia;
-}
-
-/* Change color on hover */
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.topnav c:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-
-/* Create three unequal columns that floats next to each other */
-.column {
-  float: left;
-  padding: 10px;
-}
-
-/* Left and right column */
-.column.side {
-  width: 25%;
-  font-family: georgia;
-  background-color: beige;
-}
-
-/* Middle column */
-.column.middle {
-  width: 50%;
-  background-color: Beige;
-  border-radius: 8px;
-  font-family: georgia;
-}
-
- h2 {
-    font-size:40px;
-    text-align:center; 
-    
-  }
-  
-   h3{
-     font-size:20px;
-     text-align:center;
-   }
-   
-   p{
-     text-align:center;
-   }
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 600px) {
-  .column.side, .column.middle {
-    width: 100%;
-  }
-}
-    
-     .block {
-    display: block;
-    width: 100%%;
-    border: none;
-    background-color: #F5F5DC;
-    color: black; 
-    padding: 14px 28px; 
-    font-size: 40px; 
-    cursor: pointer; 
-    text-align:center; 
-    font-family:georgia;
-  }
-  
-  .block:hover {
-    background-color: #ddd;
-    color: black; 
-  }
-    </style>
   </head>
   <body style="background-color:beige;">
   <div class="header">
   <h1> Test-Fest </h1>
   <p> En testservice der kan overskue elevers udvikling </p>
-    </div>
+  </div>
 
-    <div class="topnav">
-    <br>
-      <b href="#">  </b>
-      <a href="#">Tilbage</a>
-      <b href="#">   </b>
-      <c href="#" onclick="SaveTest()">Gem Test</c>
-      <c><href="#" onclick="GenerateQuestion()">Nyt spørgsmål</button></c>
-      
-      <b href="#">  </b>
-    </div>
+  <div class="topnav">
+  <br>
+  <b href="#">  </b>
+  <a href="javascript:history.back()">Tilbage</a>
+  <b href="#">   </b>
+  <a href="#" onclick="SaveTest()">Gem Test</a>
+  <b href="#">   </b>
+  <a><href="#" onclick="GenerateQuestion()">Nyt spørgsmål</button></a>
+  <b href="#">  </b>
+  </div>
 
-    <div class="row">
-      <div class="column side">
-        <h2> Instruktioner </h2>
-        <p> Her skal jeg lige huske hvordan man laver en formatteret liste, så det kommer senere </p>
-      </div>
-  
-  <div class="column middle">
-     <h2>Spørgsmål</h2>
-        <br>
-  <div style="text-align:center;">
-    <h3></p>
-  </div>
-        <br>
-        <br>
-  <div style="text-align:center;" id="container">
-    
-    
-     
-    <script>
-   var answer_no = 1;
-   var question_no = 1;
-    </script>
-    
-  </div>
-  </div>
-  
+  <div class="row">
   <div class="column side">
-    <h2>  </h2>
-    <p>  </p>
+  <h2> Instruktioner </h2>
+  <p> Her skal jeg lige huske hvordan man laver en formatteret liste, så det kommer senere </p>
   </div>
-</div>
+
+  <div class="column middle">
+  <h2>Spørgsmål</h2>
+  <br>
+  <div style="text-align:center;">
+  <h3></p>
+  </div>
+  <br>
+  <br>
+  <div style="text-align:center;" id="container">
+
+
+
+  <script>
+  var answer_no = 1;
+var question_no = 1;
+</script>
+
+  </div>
+  </div>
+
+  <div class="column side">
+  <h2>  </h2>
+  <p>  </p>
+  </div>
+  </div>
   </body>
-</html>
+  </html>

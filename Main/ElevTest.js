@@ -1,4 +1,3 @@
-
 function showQuestion () {
   document.getElementById('submit').onclick = function() {
 
