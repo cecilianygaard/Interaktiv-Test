@@ -17,7 +17,6 @@ const ADMIN   = "0";
 const TEACHER = "1";
 const STUDENT = "2";
 
-
 //prefixes of implementation that we want to test
          window.indexedDB = window.indexedDB || window.mozIndexedDB || 
          window.webkitIndexedDB || window.msIndexedDB;
@@ -40,10 +39,15 @@ const STUDENT = "2";
           const dummyanswerData = [
             {text: "svar"}
          ];
+           
+            const dummyQuestionData = [
+            {text: "Spørgsmål", answers:"", correctAnswers: "" }
+         ];
          
-
-         
-       
+             const dummyTestData = [
+            {testname: "Testxxx", questions:"", username: "" }
+         ];
+           
          var db;
          var request = window.indexedDB.open("newDatabase", 1);
          
@@ -77,7 +81,6 @@ const STUDENT = "2";
             
             /* Generate answer table in database */
             
-            //create user table and tell database that key is username (unique)
             var objectStoreAnswers = db.createObjectStore("answers", { autoIncrement : true });
             
             //needed for index based searching by id
@@ -88,9 +91,32 @@ const STUDENT = "2";
                objectStoreAnswers.add(dummyanswerData[j]);
             }
             
+            /* Generate question table */
+            
+            var objectStoreQuestions = db.createObjectStore("questions", { autoIncrement : true });
+            
+            //needed for index based searching by id
+            //objectStoreAnswers.createIndex("id", "id", { unique: true });
+            
+             //populate database with hardcoded entries
+            for (var k in dummyQuestionData) {
+               objectStoreQuestions.add(dummyQuestionData[k]);
+            }
+            
+            /* Generate question table */
+            var objectStoreTest = db.createObjectStore("test", { autoIncrement : true });
+            
+            //needed for index based searching by id
+            //objectStoreAnswers.createIndex("id", "id", { unique: true });
+            
+             //populate database with hardcoded entries
+            for (var l in dummyTestData) {
+               objectStoreTest.add(dummyTestData[l]);
+            }
+            
+            
          }
-         
-         
+          
          function check_password()
          {
            
@@ -189,6 +215,4 @@ const STUDENT = "2";
             request.onsuccess = function(event) {
                alert("Svend's entry has been removed from your database.");
             };
-         }
-         
-         
+         }      

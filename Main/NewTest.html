@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>Ny test</title>
@@ -157,7 +157,7 @@ body {
     <div class="topnav">
     <br>
       <b href="#">  </b>
-      <a href="#">Tilbage</a>
+      <a href="#">Forside</a>
       <b href="#">   </b>
       <c href="#" onclick="SaveTest()">Gem Test</c>
       <c><href="#" onclick="GenerateQuestion()">Nyt spørgsmål</button></c>
@@ -172,8 +172,12 @@ body {
       </div>
   
   <div class="column middle">
-     <h2>Spørgsmål</h2>
+     <h2>Navn på test</h2>
+     <div style="text-align:center;">
+       
+        <input type="text" id="text_field_test_name"/>
         <br>
+          </div>
   <div style="text-align:center;">
     <h3></p>
   </div>
@@ -186,6 +190,7 @@ body {
     <script>
    var answer_no = 1;
    var question_no = 1;
+   var answers_per_question_array = [];
     </script>
     
   </div>
