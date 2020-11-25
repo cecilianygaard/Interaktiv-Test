@@ -16,6 +16,7 @@
 const ADMIN   = "0";
 const TEACHER = "1";
 const STUDENT = "2";
+const HOLD = "3";
 
 
 //prefixes of implementation that we want to test
@@ -42,12 +43,20 @@ TEACHER, username:
 , 
 { 
 brugerid: 
-STUDENT, username: 
+STUDENT, navn:
+"Dudania", hold:
+"3a", username: 
 "dude", password: 
 "qCHGLoEE+FGdY5tMCUiuzmQbFD9mAfoUWZO7LixymdQ=", email: 
   "du@de.com"
 }
 //hardcode more users here
+,
+{
+  brugerid:
+  HOLD, navn:
+  "3a"
+}
 ];
 
 const dummyanswerData = [
