@@ -1,4 +1,3 @@
-
 function showQuestion () {
   document.getElementById('submit').onclick = function() {
 
@@ -7,7 +6,6 @@ function showQuestion () {
     var question = document.createElement('h2');
     question.innerHTML = "Spørgsmål";
     container.appendChild(question);
-
 
     //Generate radio buttons
     for (var i = 1; i <= 4; i++)

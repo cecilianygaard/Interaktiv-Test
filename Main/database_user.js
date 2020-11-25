@@ -1,15 +1,15 @@
 /* indexedDB path for Chrome
-C:\Users\"user name"\AppData\Local\Google\Chrome\User Data\Default\IndexedDB */
+ C:\Users\"user name"\AppData\Local\Google\Chrome\User Data\Default\IndexedDB */
 
 /* indexedDB databases are unique per webpage and pc user
-As processing changes URL everytime it's reloaded, a new db is created when that happens.
-An existing db can be renamed to match another URL */
+ As processing changes URL everytime it's reloaded, a new db is created when that happens.
+ An existing db can be renamed to match another URL */
 
 /* Find indexedDB in Chrome dev tools this way:
-1) Click options
-2) Click more tools
-3) Click developer tools
-4) Find indexeddB tab */
+ 1) Click options
+ 2) Click more tools
+ 3) Click developer tools
+ 4) Find indexeddB tab */
 
 //Note: If anything in the db format changes, the db must be cleared and rebuild. Either delete database file or delete in dev tools.
 

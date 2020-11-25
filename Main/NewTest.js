@@ -1,4 +1,4 @@
-function GenerateQuestion () {
+  function GenerateQuestion () {
 
     var container = document.getElementById('container');
 
@@ -57,8 +57,6 @@ function GenerateQuestion () {
     question_no++;
 }
 
-
-
 function SaveTest()
 {
   var answers_to_save;
@@ -93,14 +91,12 @@ function SaveTest()
          //var request = objectStore1.add({ text: document.getElementById('answer_text_field'+answer_counter).value});
          
          key_id = SaveAnswer(document.getElementById('answer_text_field'+answer_counter).value);
-     
        
            alert("key_id: " + key_id);
          
             //add key to string of keys
             answer_keys = answer_keys + key_id + " ";
-          
-            
+              
             //incremenet no of answers saved
             answers_saved++;
     
@@ -110,25 +106,14 @@ function SaveTest()
                //answer_keys is a string of keys pointing to answers for the current question
                //question_keys += SaveQuestion(answer_keys, document.getElementById('question_text_field'+i).value);
                question_saved = 1;
-              
             }
-    
        }
-       //while(!question_saved){}
-     
+       //while(!question_saved){}  
     }  
-    
- 
 }
 
-
-
-
 function SaveAnswer(answertext)
-{
- 
-   
-   
+{  
    
 var CheckAnswerSavedInstance = function () {
     CheckAnswerSaved
@@ -142,14 +127,12 @@ var CheckAnswerSavedInstance = function () {
             //console.log(error.message);
              // output: 'mom is not happy'
         });
-  
 } 
 
  var transaction1 = db.transaction(["answers"], "readwrite");
    var objectStore1 = transaction1.objectStore("answers");
    var request = objectStore1.add({ text: answertext});   
-   
-   
+    
 var CheckAnswerSaved = new Promise(
 
    function(myResolve, myReject)
@@ -172,12 +155,7 @@ return CheckAnswerSavedInstance();
 
 }
 
-
-
-
 //SaveQuestion();
-
-
 
 function SaveQuestion(answer_keys, question_text)
 {
@@ -191,10 +169,7 @@ function SaveQuestion(answer_keys, question_text)
   
        var request2 = db.transaction(["questions"], "readwrite")
             .objectStore("questions")
-            .add({ text: question_text, answers: answer_keys, correctAnswers: ""});
-            
-            
-             
+            .add({ text: question_text, answers: answer_keys, correctAnswers: ""});       
             
             request2.onsuccess = function(event)
             {
@@ -208,7 +183,6 @@ function SaveQuestion(answer_keys, question_text)
            };
      return question_key;
 }
-
 function SaveTestComplete(question_keys)
 {
    var request = db.transaction(["tests"], "readwrite")
@@ -218,7 +192,6 @@ function SaveTestComplete(question_keys)
 
 function insertNewline(no)
 {
-
   for (var i=0; i<no; i++)  
   {
     var newline = document.createElement('br');
