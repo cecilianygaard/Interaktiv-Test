@@ -1,6 +1,10 @@
 <!DOCTYPE html>
-  <html>
+<html>
   <head>
+  
+  <script language="javascript" type="text/javascript" src="database_user.js"></script>
+  <script language="javascript" type="text/javascript" src="Brugere.js"></script>
+  
   <title>Opret bruger</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,32 +37,27 @@
   <br>
   <p>Navn</p>
   <div style="text-align:center;">
-  <input id="Navn"/>
+  <input id="user_name_textfield"/>
   <br>
   <br>
   <p>Brugernavn</p>
   <div style="text-align:center;">
-  <input id="Brugernavn"/>
-  <br>
-  <br>
-  <p>Hold</p>
-  <div style="text-align:center;">
-  <input id="Brugernavn"/>
+  <input id="user_login_textfield"/>
   <br>
   <br>
   <p>E-mail</p>
   <div style="text-align:center;">
-  <input id="Brugernavn"/>
+  <input id="user_email_textfield"/>
   <br>
   <br>
   <p>Adgangskode</p>
-  <input id="Adgangskode"/>
+  <input id="user_password_textfield"/>
   <br>
   </div>
   <br>
   <br>
   <div style="text-align:center;">
-  <button type="button">Opret bruger</button>
+  <button onclick = "add_user()">Opret bruger</button>
   </div>
   </div>
 

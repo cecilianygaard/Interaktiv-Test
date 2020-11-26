@@ -1,7 +1,28 @@
-// dette er ikke noget brugbar kode endnu, men arbejder på det. Det er noget af det kode jeg brugte til at lave spørgsmål helt i starten. 
+//opret bruger kode:
 
 
-////opret bruger kode:
+
+
+function add_user() {
+  
+  var name = document.getElementById('user_name_textfield').value;
+  var login = document.getElementById('user_login_textfield').value;
+  var email = document.getElementById('user_email_textfield').value;
+  var password = document.getElementById('user_password_textfield').value;
+    
+  var request = db.transaction(["user"], "readwrite")
+    .objectStore("user")
+    .add( { brugerid: STUDENT, login: login, password: password, email: email, name: name});
+
+  request.onsuccess = function(event) {
+    alert("user has been added to your database.");
+  };
+
+  request.onerror = function(event) {
+    alert("Unable to add data\r\n user already exists in your database ");
+  };
+}
+
 ////do the search
 //  index.get(brugernavn).onsuccess = function(event) {
 //    //user found, now check if password is correct

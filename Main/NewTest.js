@@ -1,7 +1,4 @@
-  
-
-  
-  function GenerateQuestion () {
+   function GenerateQuestion () {
 
     var container = document.getElementById('container');
 

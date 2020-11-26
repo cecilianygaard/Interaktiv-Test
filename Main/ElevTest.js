@@ -1,6 +1,4 @@
 function showQuestion () {
-  document.getElementById('submit').onclick = function() {
-
     var container = document.getElementById('container');
   //Show question
     var question = document.createElement('h2');
@@ -30,5 +28,5 @@ function showQuestion () {
       var newline = document.createElement('br');
       container.appendChild(newline);
     }
-  }
+  
 }
