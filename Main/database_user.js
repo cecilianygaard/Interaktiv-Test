@@ -246,6 +246,53 @@ function showQuestions(questions_keys){
           }
        }
    
+   function upload_users(evt) {
+      var files = evt.target.files; // FileList object
+      
+      var reader = new FileReader();
+
+        reader.onload = function(e) {
+          var data = e.target.result;
+          var workbook = XLSX.read(data, {
+            type: 'binary'
+          });
+          workbook.SheetNames.forEach(async function(sheetName) {
+            // Here is your object
+            var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName],{range: "B3:G100"});
+            
+            for (var i=0 ; i<XL_row_object.length; i++) {
+              if (XL_row_object[i].Type=="Elev") {
+                var brugernavn = XL_row_object[i].Fornavn + XL_row_object[i].Efternavn;
+                var navn = XL_row_object[i].Fornavn;
+                var email = "";
+                var pw = XL_row_object[i].Efternavn + "1234";
+
+                var hashedpw = await asyncHash(pw);    
+
+                var request = db.transaction(["user"], "readwrite")
+                .objectStore("user")
+                .add({ brugerid: STUDENT, login: brugernavn, password: hashedpw, email: email, name: navn });
+            
+                request.onsuccess = function(event) {
+              };
+            
+                request.onerror = function(event) {
+                   alert("Unable to add data\r\Brugeren eksisterer allerede! ");
+                }
+              }
+              
+            }
+          })
+          console.log("success: " + reader);
+        };
+
+        reader.onerror = function(ex) {
+          console.log(ex);
+        };
+
+        reader.readAsBinaryString(files[0]);
+   }
+   
    
    //below are test functions that might come in handy later
 
