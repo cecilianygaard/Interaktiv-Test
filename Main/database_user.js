@@ -119,14 +119,14 @@ const STUDENT = "2";
 
             /* Generate team table */
             
-            var objectStoreQuestions = db.createObjectStore("team", { autoIncrement : true, keyPath: "key"});
+            var objectStoreTeams = db.createObjectStore("team", { keyPath: "name"});
             
-            //needed for index based searching by id
-            //objectStoreAnswers.createIndex("id", "id", { unique: true });
+            //needed for index based searching by name
+            objectStoreAnswers.createIndex("name", "name", { unique: true });
             
              //populate database with hardcoded entries
-            for (var k in dummyTeamData) {
-               objectStoreQuestions.add(dummyTeamData[k]);
+            for (var t in dummyTeamData) {
+               objectStoreTeams.add(dummyTeamData[t]);
             }
 
          }; 
