@@ -102,13 +102,11 @@ body {
     
      .block {
     display: block;
-    width: 20%%;
-    width: 100%%;
+    width: 40%;
     border: none;
     background-color: DarkSalmon;
     color: beige; 
     padding: 14px 28px; 
-    font-size: 20px; 
     font-size: 40px; 
     cursor: pointer; 
     text-align:center; 

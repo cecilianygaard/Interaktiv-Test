@@ -1,10 +1,1 @@
-/*function setup() {
-createCanvas (fullscreen);
-
-}
-
-
-function draw() {
-background(220);
-
-} */
+//This page needs to be here so Processing works.
