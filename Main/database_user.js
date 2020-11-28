@@ -274,10 +274,11 @@ function showQuestions(questions_keys){
                 .add({ brugerid: STUDENT, login: brugernavn, password: hashedpw, email: email, name: navn });
             
                 request.onsuccess = function(event) {
+                  document.getElementById('message').innerHTML="Brugerne blev oprettet i databasen.";
               };
             
                 request.onerror = function(event) {
-                   alert("Unable to add data\r\Brugeren eksisterer allerede! ");
+                  document.getElementById('message').innerHTML="Fejl. Brugerne kunne ikke oprettes i databasen. Prøv igen.";
                 }
               }
               
