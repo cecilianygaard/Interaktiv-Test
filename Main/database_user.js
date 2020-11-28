@@ -38,7 +38,7 @@ const STUDENT = "2";
          ];
                 
           const dummyanswerData = [
-            {text: "svar"}
+            {text: "Answer"}
          ];
            
             const dummyQuestionData = [
@@ -47,6 +47,10 @@ const STUDENT = "2";
          
              const dummyTestData = [
             {testname: "Testxxx", questions:"", username: "" }
+         ];
+         
+             const dummyTeamData = [
+            {name: "Teamxxx", schoolClass:"", subject: "" }
          ];
            
          var db;
@@ -102,7 +106,7 @@ const STUDENT = "2";
                objectStoreQuestions.add(dummyQuestionData[k]);
             }
             
-            /* Generate question table */
+            /* Generate test table */
             var objectStoreTest = db.createObjectStore("test", { autoIncrement : true, keyPath: "key"});
             
             //needed for index based searching by id
@@ -112,7 +116,19 @@ const STUDENT = "2";
             for (var l in dummyTestData) {
                objectStoreTest.add(dummyTestData[l]);
             }
+
+            /* Generate team table */
             
+            var objectStoreQuestions = db.createObjectStore("team", { autoIncrement : true, keyPath: "key"});
+            
+            //needed for index based searching by id
+            //objectStoreAnswers.createIndex("id", "id", { unique: true });
+            
+             //populate database with hardcoded entries
+            for (var k in dummyTeamData) {
+               objectStoreQuestions.add(dummyTeamData[k]);
+            }
+
          }; 
           
 async function check_password() {
@@ -210,6 +226,26 @@ function showQuestions(questions_keys){
      
        };
    }
+}
+   
+       function add_team() {
+         var name = document.getElementById("team_name_textfield").value;
+         var schoolClass = document.getElementById("team_schoolClass_textfield").value;
+         var subject = document.getElementById("team_subject_textfield").value;
+         
+          var request = db.transaction(["team"], "readwrite")
+          .objectStore("team")
+          .add({ name: name, schoolClass: schoolClass, subject: subject });
+          
+          request.onsuccess = function(event) {
+             alert("Hold er oprettet!");
+          };
+          
+          request.onerror = function(event) {
+             alert("Hold kunne ikke blive oprettet. Prøv igen.");
+          }
+       }
+   
    
    //below are test functions that might come in handy later
 
@@ -234,8 +270,7 @@ function showQuestions(questions_keys){
    //   var newline = document.createElement('br');
    //   container.appendChild(newline);
    // }
-  
-}
+   
 /*         
          function read_all_users() {
             var objectStore = db.transaction("user").objectStore("user");
