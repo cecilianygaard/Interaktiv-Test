@@ -97,7 +97,11 @@ function SaveTest()
          answer_counter++;
           
          //add answer to answer string (split with "|")
-         answer_text = answer_text + document.getElementById('answer_text_field'+answer_counter).value + "|";
+         if(j>1)
+         {
+           answer_text += '|';
+         }
+         answer_text = answer_text + document.getElementById('answer_text_field'+answer_counter).value;
               
          //increment no of answers saved
          answers_saved++;

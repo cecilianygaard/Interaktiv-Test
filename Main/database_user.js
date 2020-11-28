@@ -109,9 +109,9 @@ const STUDENT = "2";
             //objectStoreAnswers.createIndex("id", "id", { unique: true });
             
              //populate database with hardcoded entries
-            for (var l in dummyTestData) {
-               objectStoreTest.add(dummyTestData[l]);
-            }
+         // for (var l in dummyTestData) {
+         //    objectStoreTest.add(dummyTestData[l]);
+         // }
             
          }; 
           
@@ -151,12 +151,12 @@ async function check_password() {
   };
 }
 
-   function getTest() {
+   function getTest(test_no) {
        
      var objectStore = db.transaction(["test"], "readwrite")
         .objectStore("test");
           
-     var request = objectStore.get(2);
+     var request = objectStore.get(test_no);
          
             
          request.onerror = function(event) {
@@ -194,22 +194,77 @@ function showQuestions(questions_keys){
        
        request.onsuccess = function(event) {
         
-          alert(request.result.text);
+          //alert(request.result.text);
           //answers
           let temp_str = request.result.answers;
           let answers = temp_str.split("|");
-          temp_str = "";
-          for(let c=0;c<answers.length;c++)
+          //temp_str = "";
+          //for(let c=0;c<answers.length;c++)
+          //{
+          //  temp_str += answers[c] + "\n";
+          //}
+          //alert(temp_str);
+          
+          var container = document.getElementById('container');
+          
+          //---------------------------------------
+          
+          insertNewline(2);
+          
+           let question = document.createElement('h3');
+           question.innerHTML = request.result.text;
+           container.appendChild(question);
+          
+          //iterate through answers
+          for(let i=0;i<answers.length;i++)
           {
-            temp_str += answers[c] + "\n";
+            
+            
+             
+             let radiobox1 = document.createElement('input');
+
+             radiobox1.type = 'radio';
+             radiobox1.id = i;
+             radiobox1.value = i;
+             radiobox1.name = 'question';
+             container.appendChild(radiobox1);
+             
+             let label1 = document.createElement('label');
+             label1.htmlFor = 'Answer ' + i;
+             var description1 = document.createTextNode(answers[i]);
+             label1.appendChild(description1);
+             container.appendChild(label1);
+             
+             insertNewline(1);
           }
-          alert(temp_str);
+
+      //var description1 = document.createTextNode('Answer ' + i);
+
+      //label1.appendChild(description1);
+
+      //container.appendChild(radiobox1);
+      //container.appendChild(label1);
+      //var newline = document.createElement('br');
+      //container.appendChild(newline);
+          
+          
+          
+          
        };
             
        request.onerror = function(event) {
      
        };
    }
+   
+function insertNewline(no)
+{
+  for (var i=0; i<no; i++)  
+  {
+    var newline = document.createElement('br');
+    container.appendChild(newline);
+  }
+}       
    
    //below are test functions that might come in handy later
 
