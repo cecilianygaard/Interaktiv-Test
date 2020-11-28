@@ -38,7 +38,7 @@ const STUDENT = "2";
          ];
                 
           const dummyanswerData = [
-            {text: "svar"}
+            {text: "Answer"}
          ];
            
             const dummyQuestionData = [
@@ -47,6 +47,10 @@ const STUDENT = "2";
          
              const dummyTestData = [
             {testname: "Testxxx", questions:"", username: "" }
+         ];
+         
+             const dummyTeamData = [
+            {name: "Teamxxx", schoolClass:"", subject: "" }
          ];
            
          var db;
@@ -102,17 +106,28 @@ const STUDENT = "2";
                objectStoreQuestions.add(dummyQuestionData[k]);
             }
             
-            /* Generate question table */
+            /* Generate test table */
             var objectStoreTest = db.createObjectStore("test", { autoIncrement : true, keyPath: "key"});
             
             //needed for index based searching by id
             //objectStoreAnswers.createIndex("id", "id", { unique: true });
             
              //populate database with hardcoded entries
+
          // for (var l in dummyTestData) {
          //    objectStoreTest.add(dummyTestData[l]);
          // }
             
+            var objectStoreTeams = db.createObjectStore("team", { keyPath: "name"});
+            
+            //needed for index based searching by name
+            objectStoreAnswers.createIndex("name", "name", { unique: true });
+            
+             //populate database with hardcoded entries
+            for (var t in dummyTeamData) {
+               objectStoreTeams.add(dummyTeamData[t]);
+            }
+
          }; 
           
 async function check_password() {
@@ -256,6 +271,74 @@ function showQuestions(questions_keys){
      
        };
    }
+}
+   
+       function add_team() {
+         var name = document.getElementById("team_name_textfield").value;
+         var schoolClass = document.getElementById("team_schoolClass_textfield").value;
+         var subject = document.getElementById("team_subject_textfield").value;
+         
+          var request = db.transaction(["team"], "readwrite")
+          .objectStore("team")
+          .add({ name: name, schoolClass: schoolClass, subject: subject });
+          
+          request.onsuccess = function(event) {
+             alert("Hold er oprettet!");
+          };
+          
+          request.onerror = function(event) {
+             alert("Hold kunne ikke blive oprettet. Prøv igen.");
+          }
+       }
+   
+   function upload_users(evt) {
+      var files = evt.target.files; // FileList object
+      
+      var reader = new FileReader();
+
+        reader.onload = function(e) {
+          var data = e.target.result;
+          var workbook = XLSX.read(data, {
+            type: 'binary'
+          });
+          workbook.SheetNames.forEach(async function(sheetName) {
+            // Here is your object
+            var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName],{range: "B3:G100"});
+            
+            for (var i=0 ; i<XL_row_object.length; i++) {
+              if (XL_row_object[i].Type=="Elev") {
+                var brugernavn = XL_row_object[i].Fornavn + XL_row_object[i].Efternavn;
+                var navn = XL_row_object[i].Fornavn;
+                var email = "";
+                var pw = XL_row_object[i].Efternavn + "1234";
+
+                var hashedpw = await asyncHash(pw);    
+
+                var request = db.transaction(["user"], "readwrite")
+                .objectStore("user")
+                .add({ brugerid: STUDENT, login: brugernavn, password: hashedpw, email: email, name: navn });
+            
+                request.onsuccess = function(event) {
+                  document.getElementById('message').innerHTML="Brugerne blev oprettet i databasen.";
+              };
+            
+                request.onerror = function(event) {
+                  document.getElementById('message').innerHTML="Fejl. Brugerne kunne ikke oprettes i databasen. Prøv igen.";
+                }
+              }
+              
+            }
+          })
+          console.log("success: " + reader);
+        };
+
+        reader.onerror = function(ex) {
+          console.log(ex);
+        };
+
+        reader.readAsBinaryString(files[0]);
+   }
+   
    
 function insertNewline(no)
 {
@@ -289,8 +372,7 @@ function insertNewline(no)
    //   var newline = document.createElement('br');
    //   container.appendChild(newline);
    // }
-  
-}
+   
 /*         
          function read_all_users() {
             var objectStore = db.transaction("user").objectStore("user");
