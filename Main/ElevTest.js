@@ -107,7 +107,32 @@ function saveResults(test_no)
   
 }
 
-
+function getTest(test_no) {   
+  var objectStore = db.transaction(["test"], "readwrite")
+     .objectStore("test");
+          
+  var request = objectStore.get(test_no);
+                  
+      request.onerror = function(event) {
+        alert("Unable to retrieve data from database!");
+         };
+            
+      request.onsuccess = function(event) {
+      // Do something with the request.result!
+        if(request.result) {
+         //alert("Name: " + request.result.testname + ", Questions: " + request.result.questions + ", Username: " + request.result.username);
+                  
+         //get question keys
+         var temp_str = request.result.questions;
+         var questions_keys = temp_str.split("|");
+                
+       showQuestions(questions_keys, test_no);
+         } 
+       else {
+         alert("Question couldn't be found in your database!");
+      }
+   };
+}
 
 function showAnswers (){
 

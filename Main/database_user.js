@@ -36,38 +36,38 @@ const userData = [
    //hardcode more users here
 ];
                 
-const dummyanswerData = [
-  {text: "Answer"}
+    const dummyanswerData = [
+   {text: "Answer"}
 ];
            
-const dummyQuestionData = [
-  {text: "Spørgsmål", answers:"", correctAnswers: "" }
+    const dummyQuestionData = [
+   {text: "Spørgsmål", answers:"", correctAnswers: "" }
 ];
          
-             const dummyTestData = [
-            {testname: "Testxxx", questions:"", username: "" }
-         ];
+    const dummyTestData = [
+   {testname: "Testxxx", questions:"", username: "" }
+];
          
-             const dummyTeamData = [
-            {name: "Teamxxx", schoolClass:"", subject: "" }
-         ];
+    const dummyTeamData = [
+   {name: "Teamxxx", schoolClass:"", subject: "" }
+];
          
-          const dummyResultsData = [
-          {login: "userxxx", testkey:"10", answers: "1|2" }
-          ];
+    const dummyResultsData = [
+   {login: "userxxx", testkey:"10", answers: "1|2" }
+];
          
      
-         var db;
-         var request = window.indexedDB.open("newDatabase", 1);
+var db;
+var request = window.indexedDB.open("newDatabase", 1);
          
-         request.onerror = function(event) {
-            console.log("error: ");
-         };
+request.onerror = function(event) {
+   console.log("error: ");
+};
          
-         request.onsuccess = function(event) {
-            db = request.result;
-            console.log("success: " + db);
-         };
+request.onsuccess = function(event) {
+   db = request.result;
+   console.log("success: " + db);
+};  
          
 //this function will create the database if it doesn't exist
 request.onupgradeneeded = function(event) {
@@ -108,8 +108,7 @@ request.onupgradeneeded = function(event) {
    /* Generate Results table */
    //This creates an objecstore for test results  
    var objectStoreResults = db.createObjectStore("Results", {autoIncrement : true, keyPath: "key"}); 
-}; 
-     
+};     
           
 async function check_password() {
   //retrieve username and password from login page
@@ -146,36 +145,7 @@ async function check_password() {
     alert("user not found");
   };
 }
-
-
-function getTest(test_no) {   
-  var objectStore = db.transaction(["test"], "readwrite")
-     .objectStore("test");
-          
-  var request = objectStore.get(test_no);
-                  
-      request.onerror = function(event) {
-        alert("Unable to retrieve data from database!");
-         };
-            
-      request.onsuccess = function(event) {
-      // Do something with the request.result!
-        if(request.result) {
-         //alert("Name: " + request.result.testname + ", Questions: " + request.result.questions + ", Username: " + request.result.username);
-                  
-         //get question keys
-         var temp_str = request.result.questions;
-         var questions_keys = temp_str.split("|");
-                
-       showQuestions(questions_keys, test_no);
-         } 
-       else {
-         alert("Question couldn't be found in your database!");
-      }
-   };
-}
-         
-          
+                   
 function add_team() {
   var name = document.getElementById("team_name_textfield").value;
   var schoolClass = document.getElementById("team_schoolClass_textfield").value;
