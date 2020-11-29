@@ -19,7 +19,7 @@ async function add_user(){
   };  
 }
 
-//Dette stykke kode er lavet til hvis det er et krav at man opretter sig med et hold fra start
+//Denne funktion er lavet til, hvis det er et krav, at man opretter sig med et hold fra start
 //function add_teamUser() {
 //  var team = document.getElementById('team_name_textfield').value;
   
