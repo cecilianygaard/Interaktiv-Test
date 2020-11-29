@@ -1,6 +1,5 @@
 //opret bruger kode:
-function add_user(){ 
-  alert ("gurli");
+async function add_user(){ 
   var name = document.getElementById('user_name_textfield').value;
   var login = document.getElementById('user_login_textfield').value;
   var email = document.getElementById('user_email_textfield').value;
@@ -9,7 +8,7 @@ function add_user(){
     
   var request = db.transaction(["user"], "readwrite")
     .objectStore("user")
-    .add( { brugerid: STUDENT, login: login, password: hashedpw, email: email, name: name});
+    .add( { brugerid: STUDENT, login: login, password: hashedpw, email: email, name: name, team: "" });
 
   request.onsuccess = function(event) {
     alert("user has been added to your database.");
