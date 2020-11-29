@@ -54,8 +54,7 @@ const userData = [
          
     const dummyResultsData = [
    {login: "userxxx", testkey:"10", answers: "1|2" }
-];
-         
+];         
      
 var db;
 var request = window.indexedDB.open("newDatabase", 1);
@@ -144,8 +143,8 @@ async function check_password() {
   index.get(brugernavn).onerror = function(event) {
     alert("user not found");
   };
-}       
-   
+}         
+
    //below are test functions that might come in handy later
 
    ////Generate radio buttons

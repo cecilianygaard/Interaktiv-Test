@@ -4,6 +4,10 @@ function showQuestions(questions_keys, test_no){
    //save globally so that save test results function knows about the number of questions shown(question_no defined in the html file)
    question_no = questions_keys.length;
    
+   var c = [];
+   
+   var correct_answer_array = [];
+   
    //iterate through questions
    for (var j = 0; j < questions_keys.length; j++)
    {
@@ -15,12 +19,13 @@ function showQuestions(questions_keys, test_no){
        request.onsuccess = function(event)
        {
          
-         questions_shown++;
+          questions_shown++;
          
           //answers
           let temp_str = request.result.answers;
           let answers = temp_str.split("|");
-          
+          correct_answer_array.push(request.result.correctAnswers);
+        
           var container = document.getElementById('container');
           
           //---------------------------------------
@@ -44,8 +49,10 @@ function showQuestions(questions_keys, test_no){
             container.appendChild(radiobox1);
              
             let label1 = document.createElement('label');
-            label1.htmlFor = 'Answer ' + i;
+            label1.htmlFor = 'Answer ' + i;           
+              label1.id = 'Question'+questions_shown+'Answer'+i;
             var description1 = document.createTextNode(answers[i]);
+          
             label1.appendChild(description1);
             container.appendChild(label1);
              
@@ -59,7 +66,12 @@ function showQuestions(questions_keys, test_no){
             var bText = document.createTextNode('Gem test');
             button.appendChild(bText);
             button.setAttribute('onclick', 'saveResults('+test_no+')');  
-            container.appendChild(button);
+            container.appendChild(button);    
+            
+            let temp_str = "";
+
+            
+            sessionStorage.correct_answer_array = correct_answer_array;
          }   
       };        
       request.onerror = function(event) {
@@ -69,6 +81,9 @@ function showQuestions(questions_keys, test_no){
 
 function saveResults(test_no)
 {
+  
+  var correct_answer_array = (sessionStorage.correct_answer_array).split(',');
+  
   //iterate through each answer
   let answers = "";
   for(let i=1;i<=question_no;i++)
@@ -91,6 +106,19 @@ function saveResults(test_no)
       }
     }
     
+    alert('Svar:'+val+', correct:' + (correct_answer_array[i-1]-1).toString());
+    
+    //Show correct answer in greens
+    let id = 'Question'+i+'Answer'+(correct_answer_array[i-1]-1).toString();
+    document.getElementById(id).style.color = "green";
+    
+    //if answer is not correct, show chosen answer in red
+    if ((val != correct_answer_array[i-1]-1))
+    {
+       let id = 'Question'+i+'Answer'+val.toString();
+       document.getElementById(id).style.color = "red";
+    }
+        
     //append number to answer string
     answers += val;
   }
@@ -104,7 +132,9 @@ function saveResults(test_no)
    {
       alert("Test resultat gemt");
    };
-  
+}
+
+function showAnswers(){
 }
 
 function getTest(test_no) {   
@@ -132,11 +162,6 @@ function getTest(test_no) {
          alert("Question couldn't be found in your database!");
       }
    };
-}
-
-function showAnswers (){
-
-
 }
 
 function insertNewline(no)
