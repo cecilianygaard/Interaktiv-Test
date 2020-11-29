@@ -1,6 +1,15 @@
 <!DOCTYPE html>
   <html>
   <head>
+  
+   <script>
+  const TEACHER = "1"; 
+if (sessionStorage.brugerid != TEACHER)
+{
+  window.location.href = 'Login_Page.html';
+}
+</script>
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
   <script language="javascript" type="text/javascript" src="hash.js"></script>
