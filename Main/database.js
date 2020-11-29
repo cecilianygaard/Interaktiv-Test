@@ -31,8 +31,8 @@ window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.ms
          
 //dette er 2 testbrugere
 const userData = [
-   { brugerid: TEACHER, login: "p", password: "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=", email: "abc@def.com", name: "Pernille", Hold:""},
-   { brugerid: STUDENT, login: "dude", password: "qCHGLoEE+FGdY5tMCUiuzmQbFD9mAfoUWZO7LixymdQ=", email: "du@de.com", name: "Nilleper", Hold:""}
+   { brugerid: TEACHER, login: "p", password: "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=", email: "abc@def.com", name: "Pernille", team:""},
+   { brugerid: STUDENT, login: "dude", password: "qCHGLoEE+FGdY5tMCUiuzmQbFD9mAfoUWZO7LixymdQ=", email: "du@de.com", name: "Nilleper", team:""}
    //hardcode more users here
 ];
                 
@@ -64,7 +64,7 @@ request.onerror = function(event) {
 };
          
 request.onsuccess = function(event) {
-   db = request.result;
+   db = event.target.result;
    console.log("success: " + db);
 };  
          
