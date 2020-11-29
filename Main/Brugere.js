@@ -1,5 +1,6 @@
 //opret bruger kode:
-async function add_user(){ 
+function add_user(){ 
+  alert ("gurli");
   var name = document.getElementById('user_name_textfield').value;
   var login = document.getElementById('user_login_textfield').value;
   var email = document.getElementById('user_email_textfield').value;
@@ -8,7 +9,7 @@ async function add_user(){
     
   var request = db.transaction(["user"], "readwrite")
     .objectStore("user")
-    .add( { brugerid: STUDENT, login: login, password: hashedpw, email: email, name: name, team: ""});
+    .add( { brugerid: STUDENT, login: login, password: hashedpw, email: email, name: name});
 
   request.onsuccess = function(event) {
     alert("user has been added to your database.");
@@ -19,7 +20,7 @@ async function add_user(){
   };  
 }
 
-//Denne funktion er lavet til hvis det er et krav at man opretter sig med et hold fra start
+//Dette stykke kode er lavet til hvis det er et krav at man opretter sig med et hold fra start
 //function add_teamUser() {
 //  var team = document.getElementById('team_name_textfield').value;
   
