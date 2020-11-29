@@ -1,6 +1,5 @@
 //opret bruger kode:
 function add_user(){ 
-  alert ("gurli");
   var name = document.getElementById('user_name_textfield').value;
   var login = document.getElementById('user_login_textfield').value;
   var email = document.getElementById('user_email_textfield').value;
