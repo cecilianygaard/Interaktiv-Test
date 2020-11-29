@@ -26,9 +26,7 @@ request.onsuccess = function(event)
          div.appendChild(a);
          cursor.continue();
       }
-      else
-      {
-     
+      else{ 
       }
    };           
 };

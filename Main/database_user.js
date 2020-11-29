@@ -32,8 +32,8 @@ const STUDENT = "2";
          
          //dette er 2 testbrugere
          const userData = [
-            { brugerid: TEACHER, login: "p", password: "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=", email: "abc@def.com", name: "Pernille", hold: ""},
-            { brugerid: STUDENT, login: "dude", password: "qCHGLoEE+FGdY5tMCUiuzmQbFD9mAfoUWZO7LixymdQ=", email: "du@de.com", name: "Nilleper", hold: ""}
+            { brugerid: TEACHER, login: "p", password: "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=", email: "abc@def.com", name: "Pernille", Hold:""},
+            { brugerid: STUDENT, login: "dude", password: "qCHGLoEE+FGdY5tMCUiuzmQbFD9mAfoUWZO7LixymdQ=", email: "du@de.com", name: "Nilleper", Hold:""}
             //hardcode more users here
          ];
                 
@@ -176,90 +176,16 @@ async function check_password() {
             };
          }
          
-function showSaveButton()
-{
-   var button = document.createElement('button');          // CREATE THE BUTTON.
-   var bText = document.createTextNode('Submit');          // CREATE TEXT FOR THE BUTTON
-   button.appendChild(bText);                              // ADD THE TEXT TO THE BUTTON.
+//function showSaveButton(){
+//   var button = document.createElement('button');          // CREATE THE BUTTON.
+//   var bText = document.createTextNode('Submit');          // CREATE TEXT FOR THE BUTTON
+//   button.appendChild(bText);                              // ADD THE TEXT TO THE BUTTON.
 
-   button.setAttribute('onclick', 'showResults()');
+//   button.setAttribute('onclick', 'showResults()');
   
-   var container = document.getElementById('container');
-   container.appendChild(button);
-  
-}
-         
-function showQuestions(questions_keys, test_no){
-   var container = document.getElementById('container');
-   
-   //save globally so that save test results function knows about the number of questions shown(question_no defined in the html file)
-   question_no = questions_keys.length;
-   
-   //iterate through questions
-   for (var j = 0; j < questions_keys.length; j++)
-   {
-       let objectStore = db.transaction(["questions"], "readwrite").objectStore("questions");
-       let request = objectStore.get(parseInt(questions_keys[j]));
-       
-       var questions_shown = 0;
-       
-       request.onsuccess = function(event)
-       {
-         
-         questions_shown++;
-         
-          //answers
-          let temp_str = request.result.answers;
-          let answers = temp_str.split("|");
-          
-          var container = document.getElementById('container');
-          
-          //---------------------------------------
-          
-          insertNewline(2);
-          
-           let question = document.createElement('h3');
-           question.innerHTML = request.result.text;
-           container.appendChild(question);
-          
-          //iterate through answers
-          for(let i=0;i<answers.length;i++)
-          { 
-             
-             let radiobox1 = document.createElement('input');
-
-             radiobox1.type = 'radio';
-             radiobox1.id = 'chosenAnswer' + i;
-             radiobox1.value = i;
-             radiobox1.name = 'question'+questions_shown;
-             container.appendChild(radiobox1);
-             
-             let label1 = document.createElement('label');
-             label1.htmlFor = 'Answer ' + i;
-             var description1 = document.createTextNode(answers[i]);
-             label1.appendChild(description1);
-             container.appendChild(label1);
-             
-             insertNewline(1);             
-          }
-                    
-          //if last question create save results button
-          if(questions_shown == question_no)
-          {
-             var button = document.createElement('button');
-             var bText = document.createTextNode('Gem test');
-             button.appendChild(bText);
-             button.setAttribute('onclick', 'saveResults('+test_no+')');  
-             container.appendChild(button);
-          }
-            
-       };
-            
-       request.onerror = function(event) {
-     
-       };
-   }
-}
+//   var container = document.getElementById('container');
+//   container.appendChild(button);
+//}
 
 function saveResults(test_no)
 {
@@ -318,7 +244,6 @@ function add_team() {
     alert("Hold kunne ikke blive oprettet. Prøv igen.");
   }
 }
-   
  
 function upload_users(evt) {
   var team = document.getElementById('team_name_textfield').value;
