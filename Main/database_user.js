@@ -12,38 +12,37 @@
  4) Find indexeddB tab */
 
 //Note: If anything in the db format changes, the db must be cleared and rebuild. Either delete database file or delete in dev tools.
-
 const ADMIN   = "0";
 const TEACHER = "1";
 const STUDENT = "2";
 
 //prefixes of implementation that we want to test
-         window.indexedDB = window.indexedDB || window.mozIndexedDB || 
-         window.webkitIndexedDB || window.msIndexedDB;
+window.indexedDB = window.indexedDB || window.mozIndexedDB || 
+window.webkitIndexedDB || window.msIndexedDB;
          
-         //prefixes of window.IDB objects
-         window.IDBTransaction = window.IDBTransaction || 
-         window.webkitIDBTransaction || window.msIDBTransaction;
-         window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+//prefixes of window.IDB objects
+window.IDBTransaction = window.IDBTransaction || 
+window.webkitIDBTransaction || window.msIDBTransaction;
+window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
          
-         if (!window.indexedDB) {
-            window.alert("Your browser doesn't support a stable version of IndexedDB.");
+  if (!window.indexedDB) {
+  window.alert("Your browser doesn't support a stable version of IndexedDB.");
          }     
          
-         //dette er 2 testbrugere
-         const userData = [
-            { brugerid: TEACHER, login: "p", password: "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=", email: "abc@def.com", name: "Pernille", Hold:""},
-            { brugerid: STUDENT, login: "dude", password: "qCHGLoEE+FGdY5tMCUiuzmQbFD9mAfoUWZO7LixymdQ=", email: "du@de.com", name: "Nilleper", Hold:""}
-            //hardcode more users here
-         ];
+//dette er 2 testbrugere
+const userData = [
+   { brugerid: TEACHER, login: "p", password: "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=", email: "abc@def.com", name: "Pernille", Hold:""},
+   { brugerid: STUDENT, login: "dude", password: "qCHGLoEE+FGdY5tMCUiuzmQbFD9mAfoUWZO7LixymdQ=", email: "du@de.com", name: "Nilleper", Hold:""}
+   //hardcode more users here
+];
                 
-          const dummyanswerData = [
-            {text: "Answer"}
-         ];
+const dummyanswerData = [
+  {text: "Answer"}
+];
            
-            const dummyQuestionData = [
-            {text: "Spørgsmål", answers:"", correctAnswers: "" }
-         ];
+const dummyQuestionData = [
+  {text: "Spørgsmål", answers:"", correctAnswers: "" }
+];
          
              const dummyTestData = [
             {testname: "Testxxx", questions:"", username: "" }
@@ -70,47 +69,47 @@ const STUDENT = "2";
             console.log("success: " + db);
          };
          
-         //this function will create the database if it doesn't exist
-         request.onupgradeneeded = function(event) {
-            var db = event.target.result; 
+//this function will create the database if it doesn't exist
+request.onupgradeneeded = function(event) {
+   var db = event.target.result; 
             
-            /* Generate user table in database */      
+   /* Generate user table in database */      
             
-            //create user table and tell database that key is username (unique)
-            var objectStore = db.createObjectStore("user", {keyPath: "login"});
+   //create user table and tell database that key is username (unique)
+   var objectStore = db.createObjectStore("user", {keyPath: "login"});
             
-            //needed for index based searching by username
-            objectStore.createIndex("login", "login", { unique: true });
+   //needed for index based searching by username
+   objectStore.createIndex("login", "login", { unique: true });
             
-            //populate database with hardcoded entries
-            for (var i in userData) {
-               objectStore.add(userData[i]);
-            }
+   //populate database with hardcoded entries
+   for (var i in userData) {
+      objectStore.add(userData[i]);
+   }
             
-            /* Generate question table */            
-            var objectStoreQuestions = db.createObjectStore("questions", { autoIncrement : true, keyPath: "key"});
+   /* Generate question table */            
+   var objectStoreQuestions = db.createObjectStore("questions", { autoIncrement : true, keyPath: "key"});
                 
-            //populate database with hardcoded entries
-            for (var k in dummyQuestionData) {
-               objectStoreQuestions.add(dummyQuestionData[k]);
-            }
+   //populate database with hardcoded entries
+   for (var k in dummyQuestionData) {
+      objectStoreQuestions.add(dummyQuestionData[k]);
+   }
             
-            /* Generate test table */
-            var objectStoreTest = db.createObjectStore("test", { autoIncrement : true, keyPath: "key"});
+   /* Generate test table */
+   var objectStoreTest = db.createObjectStore("test", { autoIncrement : true, keyPath: "key"});
             
-            /* Generate teams table */
-            var objectStoreTeams = db.createObjectStore("team", { keyPath: "name"});
+   /* Generate teams table */
+   var objectStoreTeams = db.createObjectStore("team", { keyPath: "name"});
             
-             //populate database with hardcoded entries
-            for (var t in dummyTeamData) {
-               objectStoreTeams.add(dummyTeamData[t]);
-            }
+   //populate database with hardcoded entries
+   for (var t in dummyTeamData) {
+      objectStoreTeams.add(dummyTeamData[t]);
+   }
             
-            /* Generate Results table */
-            //This creates an objecstore for test results  
-            var objectStoreResults = db.createObjectStore("Results", {autoIncrement : true, keyPath: "key"}); 
-           
-         }; 
+   /* Generate Results table */
+   //This creates an objecstore for test results  
+   var objectStoreResults = db.createObjectStore("Results", {autoIncrement : true, keyPath: "key"}); 
+}; 
+     
           
 async function check_password() {
   //retrieve username and password from login page
@@ -148,85 +147,35 @@ async function check_password() {
   };
 }
 
-   function getTest(test_no) {
-       
-     var objectStore = db.transaction(["test"], "readwrite")
-        .objectStore("test");
+
+function getTest(test_no) {   
+  var objectStore = db.transaction(["test"], "readwrite")
+     .objectStore("test");
           
-     var request = objectStore.get(test_no);
-         
-            
-         request.onerror = function(event) {
-           alert("Unable to retrieve data from database!");
-            };
-            
-         request.onsuccess = function(event) {
-         // Do something with the request.result!
-           if(request.result) {
-            //alert("Name: " + request.result.testname + ", Questions: " + request.result.questions + ", Username: " + request.result.username);
+  var request = objectStore.get(test_no);
                   
-             //get question keys
-             var temp_str = request.result.questions;
-             var questions_keys = temp_str.split("|");
-                
-          showQuestions(questions_keys, test_no);
-            } else {
-              alert("Question couldn't be found in your database!");
-               }
-            };
-         }
-         
-//function showSaveButton(){
-//   var button = document.createElement('button');          // CREATE THE BUTTON.
-//   var bText = document.createTextNode('Submit');          // CREATE TEXT FOR THE BUTTON
-//   button.appendChild(bText);                              // ADD THE TEXT TO THE BUTTON.
-
-//   button.setAttribute('onclick', 'showResults()');
-  
-//   var container = document.getElementById('container');
-//   container.appendChild(button);
-//}
-
-function saveResults(test_no)
-{
-  //iterate through each answer
-  let answers = "";
-  for(let i=1;i<=question_no;i++)
-  {
-    if(i>1)
-    {
-      answers += "|";
-    }
-    //get which radio button is pressed
-    var radios = document.getElementsByName('question'+i);
-   
+      request.onerror = function(event) {
+        alert("Unable to retrieve data from database!");
+         };
             
-    var val;
-    for (var c=0, len=radios.length; c<len; c++)
-    {
-      if ( radios[c].checked )
-      {
-         val = radios[c].value;
-         break;
+      request.onsuccess = function(event) {
+      // Do something with the request.result!
+        if(request.result) {
+         //alert("Name: " + request.result.testname + ", Questions: " + request.result.questions + ", Username: " + request.result.username);
+                  
+         //get question keys
+         var temp_str = request.result.questions;
+         var questions_keys = temp_str.split("|");
+                
+       showQuestions(questions_keys, test_no);
+         } 
+       else {
+         alert("Question couldn't be found in your database!");
       }
-    }
-    
-    //append number to answer string
-    answers += val;
-  }
-  
-  //store in Results
-  var request = db.transaction(["Results"], "readwrite")
-  .objectStore("Results")
-  .add({ login: sessionStorage.username, testkey: test_no, answers: answers});
-  
-   request.onsuccess = function(event)
-   {
-      alert("Test resultat gemt");
    };
-  
 }
-   
+         
+          
 function add_team() {
   var name = document.getElementById("team_name_textfield").value;
   var schoolClass = document.getElementById("team_schoolClass_textfield").value;
@@ -296,8 +245,7 @@ function upload_users(evt) {
           request.onerror = function(event) {
             document.getElementById('message').innerHTML="Fejl. Brugerne kunne ikke oprettes i databasen. Prøv igen.";
           };
-        }
-              
+        }        
       }
     });
    

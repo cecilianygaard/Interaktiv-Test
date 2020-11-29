@@ -60,14 +60,51 @@ function showQuestions(questions_keys, test_no){
              button.appendChild(bText);
              button.setAttribute('onclick', 'saveResults('+test_no+')');  
              container.appendChild(button);
-          }
-            
-       };
-            
+          }   
+       };        
        request.onerror = function(event) {
-     
        };
    }
+}
+
+function saveResults(test_no)
+{
+  //iterate through each answer
+  let answers = "";
+  for(let i=1;i<=question_no;i++)
+  {
+    if(i>1)
+    {
+      answers += "|";
+    }
+    //get which radio button is pressed
+    var radios = document.getElementsByName('question'+i);
+   
+            
+    var val;
+    for (var c=0, len=radios.length; c<len; c++)
+    {
+      if ( radios[c].checked )
+      {
+         val = radios[c].value;
+         break;
+      }
+    }
+    
+    //append number to answer string
+    answers += val;
+  }
+  
+  //store in Results
+  var request = db.transaction(["Results"], "readwrite")
+  .objectStore("Results")
+  .add({ login: sessionStorage.username, testkey: test_no, answers: answers});
+  
+   request.onsuccess = function(event)
+   {
+      alert("Test resultat gemt");
+   };
+  
 }
 
 
