@@ -15,8 +15,6 @@
     questionTxtField.style.fontSize = "large";
     questionTxtField.addEventListener("click", function(){if(questionTxtField.value == 'Skriv spørgsmål her'){questionTxtField.value="";}});
     container.appendChild(questionTxtField);
- 
-    
     
     insertNewline(2);
 
@@ -162,7 +160,6 @@ function SaveQuestion(answer_keys, question_text, correct_answer)
   };
 
 }
-
 
 function SaveTestComplete(question_keys)
 {

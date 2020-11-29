@@ -35,35 +35,35 @@ function showQuestions(questions_keys, test_no){
           for(let i=0;i<answers.length;i++)
           { 
              
-             let radiobox1 = document.createElement('input');
+            let radiobox1 = document.createElement('input');
 
-             radiobox1.type = 'radio';
-             radiobox1.id = 'chosenAnswer' + i;
-             radiobox1.value = i;
-             radiobox1.name = 'question'+questions_shown;
-             container.appendChild(radiobox1);
+            radiobox1.type = 'radio';
+            radiobox1.id = 'chosenAnswer' + i;
+            radiobox1.value = i;
+            radiobox1.name = 'question'+questions_shown;
+            container.appendChild(radiobox1);
              
-             let label1 = document.createElement('label');
-             label1.htmlFor = 'Answer ' + i;
-             var description1 = document.createTextNode(answers[i]);
-             label1.appendChild(description1);
-             container.appendChild(label1);
+            let label1 = document.createElement('label');
+            label1.htmlFor = 'Answer ' + i;
+            var description1 = document.createTextNode(answers[i]);
+            label1.appendChild(description1);
+            container.appendChild(label1);
              
-             insertNewline(1);             
-          }
+            insertNewline(1);             
+         }
                     
-          //if last question create save results button
-          if(questions_shown == question_no)
-          {
-             var button = document.createElement('button');
-             var bText = document.createTextNode('Gem test');
-             button.appendChild(bText);
-             button.setAttribute('onclick', 'saveResults('+test_no+')');  
-             container.appendChild(button);
-          }   
-       };        
-       request.onerror = function(event) {
-       };
+         //if last question create save results button
+         if(questions_shown == question_no)
+         {
+            var button = document.createElement('button');
+            var bText = document.createTextNode('Gem test');
+            button.appendChild(bText);
+            button.setAttribute('onclick', 'saveResults('+test_no+')');  
+            container.appendChild(button);
+         }   
+      };        
+      request.onerror = function(event) {
+      };
    }
 }
 
@@ -137,4 +137,13 @@ function getTest(test_no) {
 function showAnswers (){
 
 
+}
+
+function insertNewline(no)
+{
+  for (var i=0; i<no; i++)  
+  {
+    var newline = document.createElement('br');
+    container.appendChild(newline);
+  }
 }
