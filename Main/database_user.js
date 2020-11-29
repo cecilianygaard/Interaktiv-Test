@@ -52,7 +52,12 @@ const STUDENT = "2";
              const dummyTeamData = [
             {name: "Teamxxx", schoolClass:"", subject: "" }
          ];
-           
+         
+          const dummyResultsData = [
+          {login: "userxxx", testkey:"10", answers: "1|2" }
+          ];
+         
+     
          var db;
          var request = window.indexedDB.open("newDatabase", 1);
          
@@ -82,26 +87,10 @@ const STUDENT = "2";
                objectStore.add(userData[i]);
             }
             
-            /* Generate answer table in database */
-            
-            var objectStoreAnswers = db.createObjectStore("answers", { autoIncrement : true });
-            
-            //needed for index based searching by id
-            //objectStoreAnswers.createIndex("id", "id", { unique: true });
-            
-             //populate database with hardcoded entries
-            for (var j in dummyanswerData) {
-               objectStoreAnswers.add(dummyanswerData[j]);
-            }
-            
-            /* Generate question table */
-            
+            /* Generate question table */            
             var objectStoreQuestions = db.createObjectStore("questions", { autoIncrement : true, keyPath: "key"});
-            
-            //needed for index based searching by id
-            //objectStoreAnswers.createIndex("id", "id", { unique: true });
-            
-             //populate database with hardcoded entries
+                
+            //populate database with hardcoded entries
             for (var k in dummyQuestionData) {
                objectStoreQuestions.add(dummyQuestionData[k]);
             }
@@ -109,25 +98,18 @@ const STUDENT = "2";
             /* Generate test table */
             var objectStoreTest = db.createObjectStore("test", { autoIncrement : true, keyPath: "key"});
             
-            //needed for index based searching by id
-            //objectStoreAnswers.createIndex("id", "id", { unique: true });
-            
-             //populate database with hardcoded entries
-
-         // for (var l in dummyTestData) {
-         //    objectStoreTest.add(dummyTestData[l]);
-         // }
-            
+            /* Generate teams table */
             var objectStoreTeams = db.createObjectStore("team", { keyPath: "name"});
-            
-            //needed for index based searching by name
-            objectStoreAnswers.createIndex("name", "name", { unique: true });
             
              //populate database with hardcoded entries
             for (var t in dummyTeamData) {
                objectStoreTeams.add(dummyTeamData[t]);
             }
-
+            
+            /* Generate Results table */
+            //This creates an objecstore for test results  
+            var objectStoreResults = db.createObjectStore("Results", {autoIncrement : true, keyPath: "key"}); 
+           
          }; 
           
 async function check_password() {
@@ -187,38 +169,48 @@ async function check_password() {
              var temp_str = request.result.questions;
              var questions_keys = temp_str.split("|");
                 
-          showQuestions(questions_keys);
+          showQuestions(questions_keys, test_no);
             } else {
               alert("Question couldn't be found in your database!");
                }
             };
          }
          
-function showQuestions(questions_keys){
+function showSaveButton()
+{
+   var button = document.createElement('button');          // CREATE THE BUTTON.
+   var bText = document.createTextNode('Submit');          // CREATE TEXT FOR THE BUTTON
+   button.appendChild(bText);                              // ADD THE TEXT TO THE BUTTON.
+
+   button.setAttribute('onclick', 'showResults()');
+  
+   var container = document.getElementById('container');
+   container.appendChild(button);
+  
+}
+         
+function showQuestions(questions_keys, test_no){
    var container = document.getElementById('container');
    
-   //Show question
-   //var question = document.createElement('h2');
-   //question.innerHTML = "Spørgsmål";
-   //container.appendChild(question);
+   //save globally so that save test results function knows about the number of questions shown(question_no defined in the html file)
+   question_no = questions_keys.length;
    
    //iterate through questions
-   for (var j = 0; j < questions_keys.length; j++) {
+   for (var j = 0; j < questions_keys.length; j++)
+   {
        let objectStore = db.transaction(["questions"], "readwrite").objectStore("questions");
        let request = objectStore.get(parseInt(questions_keys[j]));
        
-       request.onsuccess = function(event) {
-        
-          //alert(request.result.text);
+       var questions_shown = 0;
+       
+       request.onsuccess = function(event)
+       {
+         
+         questions_shown++;
+         
           //answers
           let temp_str = request.result.answers;
           let answers = temp_str.split("|");
-          //temp_str = "";
-          //for(let c=0;c<answers.length;c++)
-          //{
-          //  temp_str += answers[c] + "\n";
-          //}
-          //alert(temp_str);
           
           var container = document.getElementById('container');
           
@@ -232,16 +224,14 @@ function showQuestions(questions_keys){
           
           //iterate through answers
           for(let i=0;i<answers.length;i++)
-          {
-            
-            
+          { 
              
              let radiobox1 = document.createElement('input');
 
              radiobox1.type = 'radio';
-             radiobox1.id = i;
+             radiobox1.id = 'chosenAnswer' + i;
              radiobox1.value = i;
-             radiobox1.name = 'question';
+             radiobox1.name = 'question'+questions_shown;
              container.appendChild(radiobox1);
              
              let label1 = document.createElement('label');
@@ -250,27 +240,65 @@ function showQuestions(questions_keys){
              label1.appendChild(description1);
              container.appendChild(label1);
              
-             insertNewline(1);
+             insertNewline(1);             
           }
-
-      //var description1 = document.createTextNode('Answer ' + i);
-
-      //label1.appendChild(description1);
-
-      //container.appendChild(radiobox1);
-      //container.appendChild(label1);
-      //var newline = document.createElement('br');
-      //container.appendChild(newline);
-          
-          
-          
-          
+                    
+          //if last question create save results button
+          if(questions_shown == question_no)
+          {
+             var button = document.createElement('button');
+             var bText = document.createTextNode('Gem test');
+             button.appendChild(bText);
+             button.setAttribute('onclick', 'saveResults('+test_no+')');  
+             container.appendChild(button);
+          }
+            
        };
             
        request.onerror = function(event) {
      
        };
    }
+}
+
+function saveResults(test_no)
+{
+  //iterate through each answer
+  let answers = "";
+  for(let i=1;i<=question_no;i++)
+  {
+    if(i>1)
+    {
+      answers += "|";
+    }
+    //get which radio button is pressed
+    var radios = document.getElementsByName('question'+i);
+   
+            
+    var val;
+    for (var c=0, len=radios.length; c<len; c++)
+    {
+      if ( radios[c].checked )
+      {
+         val = radios[c].value;
+         break;
+      }
+    }
+    
+    //append number to answer string
+    answers += val;
+  }
+  
+  //store in Results
+  var request = db.transaction(["Results"], "readwrite")
+  .objectStore("Results")
+  .add({ login: sessionStorage.username, testkey: test_no, answers: answers});
+  
+   request.onsuccess = function(event)
+   {
+      alert("Test resultat gemt");
+   };
+  
 }
    
        function add_team() {
@@ -337,8 +365,7 @@ function showQuestions(questions_keys){
         };
 
         reader.readAsBinaryString(files[0]);
-   }
-   
+   }  
    
 function insertNewline(no)
 {

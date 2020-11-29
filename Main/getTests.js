@@ -21,7 +21,7 @@ request.onsuccess = function(event)
          test_no++;
          let div = document.getElementById('dropdown');
          let a = document.createElement('a');
-         a.href = 'javascript:getTest('+test_no+')';
+         a.href = 'javascript:getTest('+test_no+');';
          a.innerHTML = cursor.value.testname;
          div.appendChild(a);
          cursor.continue();
