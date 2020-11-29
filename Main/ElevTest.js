@@ -79,8 +79,7 @@ function showQuestions(questions_keys, test_no){
    }
 }
 
-function saveResults(test_no)
-{
+function saveResults(test_no){
   
   var correct_answer_array = (sessionStorage.correct_answer_array).split(',');
   
@@ -105,8 +104,8 @@ function saveResults(test_no)
          break;
       }
     }
-    
-    alert('Svar:'+val+', correct:' + (correct_answer_array[i-1]-1).toString());
+    //shows the data saved in an alert
+   // alert('Svar:'+val+', correct:' + (correct_answer_array[i-1]-1).toString());
     
     //Show correct answer in greens
     let id = 'Question'+i+'Answer'+(correct_answer_array[i-1]-1).toString();
@@ -137,7 +136,15 @@ function saveResults(test_no)
 function showAnswers(){
 }
 
-function getTest(test_no) {   
+function getTest(test_no) {
+ 
+  if (sessionStorage.test_taken != 0)
+  {
+     return;
+  }
+  
+  sessionStorage.test_taken = 1;
+  
   var objectStore = db.transaction(["test"], "readwrite")
      .objectStore("test");
           
@@ -150,6 +157,9 @@ function getTest(test_no) {
       request.onsuccess = function(event) {
       // Do something with the request.result!
         if(request.result) {
+          
+           document.getElementById("test_navn").innerHTML = request.result.testname;
+          
          //alert("Name: " + request.result.testname + ", Questions: " + request.result.questions + ", Username: " + request.result.username);
                   
          //get question keys
