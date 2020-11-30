@@ -1,62 +1,301 @@
 <!DOCTYPE html>
   <html>
   <head>
-  
-   <script>
-  const TEACHER = "1"; 
-if (sessionStorage.brugerid != TEACHER)
-{
-  window.location.href = 'Login_Page.html';
-}
-</script>
-  
   <title>Lærer resultat</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <style>
+    .result_table
+    {
+      border-style:solid;
+    }
+ 
+    .result_table th
+    {
+      border-style:solid;
+    }
+ 
+    .result_table tbody
+    {
+      border-style:solid;
+    }
+ 
+    .result_table tr
+    {
+      border-style:solid;
+    }
+ 
+    .result_table td
+    {
+      border-style:solid;
+      width: 25%;
+    }
+  </style>
   <!--This refers to Style.css file-->
   <link rel="stylesheet" href="Style.css">
-
+ 
   </head>
   <body style="background-color:beige;">
   <div class="header">
   <h1> Test-Fest </h1>
   <p> En testservice der kan overskue elevers udvikling </p>
   </div>
-
+ 
   <div class="topnav">
   <br>
   <b href="#">  </b>
   <a href="Login_Page.html">Log ud</a>
-  <b href="#">   </b>                                                                                          </b>
+  <b href="#">   </b>                                                                                      </b>
   <a href="javascript:history.back()">Tilbage</a>   
   <b href="#">  </b>
   </div>
-
+ 
   <div class="center">
   <h1>Hej! Få et overblik over dine elevers udvikling her</h1>
   <br>
+  <Table width="100%">
+    <tr>
+      <td>
   <div style="text-align:center;">
-  <div class="center">
-  <button class="block">3a</button>
-  <br>
-  <br>
-  <button class="block">3b</button>
-  <br>
-  <br>
-  <button class="block">3c</button>
-  <br>
-  <br>
-  <h3></p>
+  <div class="center" id="team_list">
   </div>
+</td> 
+<td style="border-style: solid;">
+  Team:
+  <div id="team_name"></div>
+  <table  width="100%" class="result_table">
+    <tr>
+      <th>Elev</th>
+      <th>Test 1</th>
+      <th>Test 2</th>
+      <th>Procent</th>
+    </tr>
+    <tbody id="result_table">
+    
+  </tbody>
+  </table>
+</td> 
+</tr>
+  </Table>
   <br>
   <br>
-
-
+ 
   <div class="column side">
   <h2>  </h2>
   <p>  </p>
   </div>
   </div>
   </body>
+  <script language="javascript" type="text/javascript" src="database.js"></script>
+  <script>
+ 
+    function write_test_results(cell,testNumber,username)
+    {
+      var questions=[];
+      var resultsFound=0;
+        var correctAnswers = 0;
+      for (var r=0;r<ResultsTable.length;r++) 
+      {
+        var ResultsRec = ResultsTable[r];
+        if (ResultsRec.login==username)
+        {
+          resultsFound++;
+          if (testNumber==resultsFound)
+          {
+            // remember the answers
+            var answers = ResultsRec.answers.split("|");
+            // find corresponding test
+            for (var t=0;t<TestTable.length;t++)
+            {
+              var TestRec = TestTable[t];
+              if (TestRec.key==ResultsRec.testkey)
+              {
+                questions = TestRec.questions.split("|");
+                correctAnswers = 0;
+                for (var i=0;i<questions.length;i++)
+                {
+                  let question=parseInt(questions[i]);
+ 
+                  for(var q=0;q<QuestionsTable.length;q++)
+                  {
+                    var QuestionsRec = QuestionsTable[q];
+                    if (QuestionsRec.key==question)
+                    {
+                      if (QuestionsRec.correctAnswers-1==answers[i]){
+                        correctAnswers++;
+                      }
+                    }
+                  } 
+                }  
+              }
+            }
+          }
+        }         
+      }
+        cell.innerHTML = correctAnswers+"/"+questions.length+" Rigtige";
+      if (questions.length==0)
+        return(0);
+      else
+        return(100*correctAnswers/questions.length);
+    }
+
+
+
+    // Load all tables into JavaScript Objects for easy access
+    var TeamTable = [{}]; // empty JSON object
+    TeamTable.pop();
+    var UserTable = [{}]; // empty JSON object
+    UserTable.pop();
+    var ResultsTable = [{}]; // empty JSON object
+    ResultsTable.pop();
+    var TestTable = [{}]; // empty JSON object
+    TestTable.pop();
+    var QuestionsTable = [{}]; // empty JSON object
+    QuestionsTable.pop();
+ 
+    var request = window.indexedDB.open("newDatabase", 1);
+ 
+    request.onsuccess = function(event){
+      var db = event.target.result;
+ 
+      db.transaction(["team"], "readwrite").objectStore("team").openCursor().onsuccess = function(event)
+      {  
+        var cursor = event.target.result;
+        if (cursor){
+          TeamTable.push(cursor.value);
+          cursor.continue();
+        }
+      };
+ 
+      db.transaction(["user"], "readwrite").objectStore("user").openCursor().onsuccess = function(event)
+      {  
+        var cursor = event.target.result;
+        if (cursor){
+          UserTable.push(cursor.value);
+          cursor.continue();
+        }
+      };
+ 
+      db.transaction(["Results"], "readwrite").objectStore("Results").openCursor().onsuccess = function(event)
+      {  
+        var cursor = event.target.result;
+        if (cursor){
+          ResultsTable.push(cursor.value);
+          cursor.continue();
+        }
+      };
+ 
+      db.transaction(["test"], "readwrite").objectStore("test").openCursor().onsuccess = function(event)
+      {  
+        var cursor = event.target.result;
+        if (cursor){
+          TestTable.push(cursor.value);
+          cursor.continue();
+        }
+      };
+ 
+      db.transaction(["questions"], "readwrite").objectStore("questions").openCursor().onsuccess = function(event)
+      {  
+        var cursor = event.target.result;
+        if (cursor){
+          QuestionsTable.push(cursor.value);
+          cursor.continue();
+        }
+      };
+ 
+    };
+ 
+    function show_team_results(event)
+    {
+      var teamName = event.currentTarget.value;
+      var div = document.getElementById('team_name');
+      div.innerHTML=teamName;
+ 
+      var table = document.getElementById('result_table');
+      
+      var len = table.childNodes.length;
+      for (var i=0; i<len; i++)
+      {
+        var node = table.lastChild;
+        table.removeChild(node);
+      }
+ 
+      for (u=0;u<UserTable.length;u++)
+      {
+        var UserRec = UserTable[u];
+            
+        if (UserRec.team==teamName){
+ 
+          var table = document.getElementById('result_table');
+          var row = document.createElement('tr');
+          table.appendChild(row);
+          
+          // Add Name
+          var cell = document.createElement("td");
+          cell.innerHTML = UserRec.name;
+          row.appendChild(cell);
+          
+          // Add result of first test r1 = Correct 1/Total 1
+          var cell = document.createElement("td");
+          var r1 = write_test_results(cell,1,UserRec.name);
+          row.appendChild(cell);
+          
+          // Add result of second test r2 = Correct 2/Total 2
+          var cell = document.createElement("td");
+          var r2 = write_test_results(cell,2,UserRec.name);
+          row.appendChild(cell);
+ 
+          // Add improvement r2-r1
+          var cell = document.createElement("td");
+          cell.innerHTML = Math.round(r2-r1)+"%";
+          row.appendChild(cell);
+ 
+        }
+      
+      }
+    }
+ 
+    
+    var request = window.indexedDB.open("newDatabase", 1);
+ 
+    request.onerror = function(event){
+    };
+         
+    request.onsuccess = function(event){
+      db = event.target.result;
+      var objectStoreTeams = db.transaction(["team"], "readwrite").objectStore("team");
+ 
+      objectStoreTeams.openCursor().onsuccess = function(event)
+      {  
+        var cursor = event.target.result;
+        if (cursor)
+        {
+          var div = document.getElementById('team_list');
+          var button = document.createElement('button');
+          button.className = "block";
+         
+          button.addEventListener('click', show_team_results);
+          
+          if (cursor.value.name!=""){
+            button.innerHTML = cursor.value.name;
+            button.value = cursor.value.name;
+          }
+          else {
+            button.innerHTML = "&nbsp";
+            button.value = "";
+          }
+            div.appendChild(button);
+          for (var i=0; i<2; i++){
+            var newline = document.createElement('br');
+            div.appendChild(newline); 
+          }
+ 
+          cursor.continue();
+        }
+        else{ 
+        }
+      };           
+    };
+ 
+  </script>
   </html>

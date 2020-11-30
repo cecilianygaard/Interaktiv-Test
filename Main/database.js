@@ -31,7 +31,8 @@ window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.ms
          
 //dette er 2 testbrugere
 const userData = [
-   { brugerid: TEACHER, login: "p", password: "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=", email: "abc@def.com", name: "Pernille", team:""},
+//Pernille (who is a teacher) is on team "Teacher" so we won't see her results on the result page.
+   { brugerid: TEACHER, login: "p", password: "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=", email: "abc@def.com", name: "Pernille", team:"Teacher"},
    { brugerid: STUDENT, login: "dude", password: "qCHGLoEE+FGdY5tMCUiuzmQbFD9mAfoUWZO7LixymdQ=", email: "du@de.com", name: "Nilleper", team:""}
    //hardcode more users here
 ];
@@ -49,7 +50,8 @@ const userData = [
 ];
          
     const dummyTeamData = [
-   {name: "Teamxxx", schoolClass:"", subject: "" }
+   {name: "Teamxxx", schoolClass:"", subject: "" },
+   {name: "", schoolClass:"", subject: "" }
 ];
          
     const dummyResultsData = [
